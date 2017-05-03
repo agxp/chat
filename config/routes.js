@@ -31,6 +31,6 @@ module.exports.routes = {
         skipAssets: true,
     },
 
-    'post /get_user': 'UserController.get_user',
+   // 'post /get_user': 'UserController.get_user',
 
 };

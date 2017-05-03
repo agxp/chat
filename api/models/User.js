@@ -4,7 +4,7 @@
  * @description :: The User object.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
-
+var bcrypt = require('bcrypt');
 module.exports = {
 
     schema: true,
@@ -21,9 +21,10 @@ module.exports = {
         // },
 
         // main username for chat
-        name: {
+        username: {
             type: 'string',
-            required: true
+            required: true,
+			index: true
         },
 
         // random 4 digit id, enforced per username
@@ -45,23 +46,29 @@ module.exports = {
         // email is used to log in after the trial period
         email: {
             type: 'string', // default null for trial
-            defaultsTo: 'null',
-            required: true
+            defaultsTo: 'nothing',
+            required: true,
+			index: true
         },
 
         // used with email to log in
         password: {
             type: 'string', // hashed, default null for trial
-            defaultsTo: 'null',
+            defaultsTo: 'nothing',
             required: true
         },
 
         // true if user has verified their email
-        verified: {
-            type: 'boolean',
-            defaultsTo: false,
-            required: true
-        },
+		emailConfirmed: {
+		  type      : 'boolean',
+		  defaultsTo: false
+		},
+		
+		toJSON: function() {
+		  var values = this.toObject();
+		  delete values.password;
+		  return values;
+		},
 
         // user can set their current status, e.g. 'watching movies'
         status: {
@@ -86,5 +93,39 @@ module.exports = {
             });
             channels.push(channel);
         }
+    },
+
+	 beforeCreate: encryptPassword,
+  beforeUpdate: (values, next) => {
+    if (!values.password) {
+      delete values.password;
+
+      return next();
     }
+
+    try {
+      // check if the password is already hashed
+      bcrypt.getRounds(values.password);
+    } catch(e) {
+      return encryptPassword(values, next);
+    }
+
+    next();
+  }
+};
+
+function encryptPassword(values, next) {
+  if (!values.password) {
+    return next();
+  }
+
+  bcrypt.hash(values.password, 10, (error, hash) => {
+    if (error) {
+      return next(error);
+    }
+
+    values.password = hash;
+
+    next();
+  });
 };

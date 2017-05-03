@@ -34,12 +34,13 @@
     "react-router": "^2.3.0",
     "sails": "~0.12.2",
     "sails-disk": "~0.10.9",
+    "sails-hook-authorization": "^1.0.2",
     "webpack": "^1.13.0"
   },
   "scripts": {
     "start": "nf start --wrap",
     "dev": "node webpackDevServer",
-    "dist": "NODE_ENV=production webpack -p --config webpack.config.prod.js",
+    "dist": "set NODE_ENV=production & webpack -p --config webpack.config.prod.js",
     "postinstall": "npm run dist"
   },
   "main": "app.js",

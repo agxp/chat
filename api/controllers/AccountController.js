@@ -85,14 +85,6 @@ module.exports = {
       });
   },
 
-  me: (req, res) => {
-    let model = sails.config.auth.wetland ? req.getRepository(User.Entity) : User;
-
-    model.findOne(req.access_token.user)
-      .then(res.ok)
-      .catch(res.negotiate);
-  },
-
   refreshToken: (req, res) => {
     var params      = requestHelpers.secureParameters(['refresh_token'], req, true);
     var authService = sails.services.authservice;
@@ -224,7 +216,7 @@ module.exports = {
 
       return user.save();
     }).then(() => {
-      res.ok();
+      res.ok("Email verified");
     }).catch(error => {
       if (typeof error === 'string') {
         return res.badRequest(error);

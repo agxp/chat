@@ -6,10 +6,18 @@
  */
 
 module.exports = {
-    getCurrentUser: function(req, res) {
+
+    me: (req, res) => {
+        User.find(req.access_token.user).limit(1)
+            .then(res.ok)
+            .catch(res.negotiate);
+    },
+
+    getUser: (req, res) => {
+        console.log(req.params.id);
         User.findOne({
-            id: req.body.id
-        }).exec(function(err, u) {
+            id: req.params.id
+        }).exec(function (err, u) {
             if (err) {
                 return res.serverError(err);
             }
@@ -17,40 +25,46 @@ module.exports = {
                 return res.notFound('Could not find user, sorry.', req.body);
             }
 
-            sails.log('Found "%s"', u.name);
+            sails.log('Found "%s"', u.username);
             return res.json(u);
         });
     },
 
-    getUser: function(req, res) {
-        User.findOne({
-            id: req.body.id
-        }).exec(function(err, u) {
-            if (err) {
-                return res.serverError(err);
-            }
-            if (!u) {
-                return res.notFound('Could not find user, sorry.', req.body);
-            }
+    editUser: (req, res) => {
+        User.find(req.access_token.user).limit(1)
+            .exec(function (err, u) {
+                if (err) {
+                    return res.serverError(err);
+                }
+                if (!u) {
+                    return res.notFound('Could not find user, sorry.', req.body);
+                }
+                u = u[0];
 
-            sails.log('Found "%s"', u.name);
-            return res.json(u);
-        });
+                sails.log('Found "%s"', u);
+
+                if (req.body.username)
+                    u.username = req.body.username;
+                if (req.body.avatar)
+                    u.avatar = req.body.avatar;
+
+                u.save(function (err) {
+                    if (err) console.log(err)
+                    else res.json(u);
+                })
+
+            });
     },
 
-    editUser: function(req, res) {
-        User.findOne({
-            id: req.body.id
-        }).exec(function(err, u) {
-            if (err) {
-                return res.serverError(err);
-            }
-            if (!u) {
-                return res.notFound('Could not find user, sorry.', req.body);
-            }
+    getChannels: (req, res) => {
+        User.find(req.access_token.user).limit(1)
+            .exec(function (err, u) {
+                if (err) return res.serverError(err)
+                else if (!u) return res.notFound('cannot find');
 
-            sails.log('Found "%s"', u.name);
-            return res.json(u);
-        });
+                console.log(u[0]);
+
+                return res.json(u[0].channels);
+            })
     }
 };

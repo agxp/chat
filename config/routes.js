@@ -31,6 +31,11 @@ module.exports.routes = {
         skipAssets: true,
     },
 
-   // 'post /get_user': 'UserController.get_user',
-
+    // 'post /get_user': 'UserController.get_user',
+    'POST /auth/login'             : 'AuthController.login',
+    'POST /auth/trial'             : 'AuthController.trial',
+    'POST /auth/signup'            : 'AuthController.signup',
+    'GET /auth/verify-email/:token': 'AuthController.verify_email',
+    'GET /auth/me'                 : 'AuthController.me',
+    'POST /auth/refresh-token'     : 'AuthController.refreshToken'
 };

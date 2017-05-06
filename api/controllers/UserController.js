@@ -17,7 +17,7 @@ module.exports = {
         console.log(req.params.id);
         User.findOne({
             id: req.params.id
-        }).exec(function (err, u) {
+        }).exec((err, u) => {
             if (err) {
                 return res.serverError(err);
             }
@@ -32,7 +32,7 @@ module.exports = {
 
     editUser: (req, res) => {
         User.find(req.access_token.user).limit(1)
-            .exec(function (err, u) {
+            .exec((err, u) => {
                 if (err) {
                     return res.serverError(err);
                 }
@@ -48,7 +48,7 @@ module.exports = {
                 if (req.body.avatar)
                     u.avatar = req.body.avatar;
 
-                u.save(function (err) {
+                u.save((err) => {
                     if (err) console.log(err)
                     else res.json(u);
                 })
@@ -58,7 +58,7 @@ module.exports = {
 
     getChannels: (req, res) => {
         User.find(req.access_token.user).limit(1)
-            .exec(function (err, u) {
+            .exec((err, u) => {
                 if (err) return res.serverError(err)
                 else if (!u) return res.notFound('cannot find');
 

@@ -18,7 +18,7 @@ module.exports = {
         username: {
             type: 'string',
             required: true,
-			index: true
+            index: true
         },
 
         // random 4 digit id, enforced per username
@@ -39,7 +39,7 @@ module.exports = {
         email: {
             type: 'string', // default null for trial
             defaultsTo: 'trial',
-			index: true
+            index: true
         },
 
         // used with email to log in
@@ -49,16 +49,16 @@ module.exports = {
         },
 
         // true if user has verified their email
-		emailConfirmed: {
-		  type      : 'boolean',
-		  defaultsTo: false
-		},
-		
-		toJSON: function() {
-		  var values = this.toObject();
-		  delete values.password;
-		  return values;
-		},
+        emailConfirmed: {
+            type: 'boolean',
+            defaultsTo: false
+        },
+
+        toJSON: function () {
+            var values = this.toObject();
+            delete values.password;
+            return values;
+        },
 
         // user can set their current status, e.g. 'watching movies'
         status: {
@@ -70,52 +70,41 @@ module.exports = {
         // contains all the channels a user is currently part of
         channels: {
             type: 'array',
-            defaultsTo: ['main'],
-            required: true
+            defaultsTo: [],
         },
-
-        createChannel: function(ch_name, topic) {
-            var channel = new Channel._model({
-                name: ch_name,
-                admin_id: this.id,
-                topic: topic,
-                memebers: [this]
-            });
-            channels.push(channel);
-        }
     },
 
     beforeCreate: encryptPassword,
     beforeUpdate: (values, next) => {
-    if (!values.password) {
-      delete values.password;
+        if (!values.password) {
+            delete values.password;
 
-      return next();
+            return next();
+        }
+
+        try {
+            // check if the password is already hashed
+            bcrypt.getRounds(values.password);
+        } catch (e) {
+            return encryptPassword(values, next);
+        }
+
+        next();
     }
-
-    try {
-      // check if the password is already hashed
-      bcrypt.getRounds(values.password);
-    } catch(e) {
-      return encryptPassword(values, next);
-    }
-
-    next();
-  }
 };
 
 function encryptPassword(values, next) {
-  if (!values.password) {
-    return next();
-  }
-
-  bcrypt.hash(values.password, 10, (error, hash) => {
-    if (error) {
-      return next(error);
+    if (!values.password) {
+        return next();
     }
 
-    values.password = hash;
+    bcrypt.hash(values.password, 10, (error, hash) => {
+        if (error) {
+            return next(error);
+        }
 
-    next();
-  });
+        values.password = hash;
+
+        next();
+    });
 };

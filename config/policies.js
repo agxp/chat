@@ -30,6 +30,11 @@ module.exports.policies = {
     me: ['verifyToken', 'ensureToken'],
     editUser: ['verifyToken', 'ensureToken'],
     getChannels: ['verifyToken', 'ensureToken'],
+  },
+
+  ChannelController: {
+    getChannel: ['verifyToken', 'ensureToken'],
+    createChannel: ['verifyToken', 'ensureToken'],
   }
   /***************************************************************************
    *                                                                          *

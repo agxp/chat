@@ -46,7 +46,7 @@ module.exports = {
 
         members: {
             type: 'array',
-            required: true
+            defaultsTo: []
         }
     }
 };

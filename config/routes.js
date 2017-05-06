@@ -39,5 +39,8 @@ module.exports.routes = {
     'PATCH /users/@me': 'UserController.editUser',
     'GET /users/@me/channels': 'UserController.getChannels',
     'GET /users/:id': 'UserController.getUser',
-    'POST /auth/refresh-token': 'AccountController.refreshToken'
+    'POST /auth/refresh-token': 'AccountController.refreshToken',
+
+    'GET /channels/:id': 'ChannelController.getChannel',
+    'POST /channels': 'ChannelController.createChannel',
 };

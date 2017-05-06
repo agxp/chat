@@ -20,49 +20,53 @@
 module.exports.policies = {
 
 
-  AccountController: {
-    login: true,
-    refreshToken: true,
-    signup: true
-  },
+    AccountController: {
+        login: true,
+        refreshToken: true,
+        signup: true
+    },
 
-  UserController: {
-    me: ['verifyToken', 'ensureToken'],
-    editUser: ['verifyToken', 'ensureToken'],
-    getChannels: ['verifyToken', 'ensureToken'],
-  },
+    UserController: {
+        me: ['verifyToken', 'ensureToken'],
+        editUser: ['verifyToken', 'ensureToken'],
+        getChannels: ['verifyToken', 'ensureToken'],
+    },
 
-  ChannelController: {
-    getChannel: ['verifyToken', 'ensureToken'],
-    createChannel: ['verifyToken', 'ensureToken'],
-  }
-  /***************************************************************************
-   *                                                                          *
-   * Default policy for all controllers and actions (`true` allows public     *
-   * access)                                                                  *
-   *                                                                          *
-   ***************************************************************************/
+    ChannelController: {
+        getChannel: ['verifyToken', 'ensureToken'],
+        createChannel: ['verifyToken', 'ensureToken'],
+        editChannel: ['verifyToken', 'ensureToken'],
+        deleteChannel: ['verifyToken', 'ensureToken'],
+        getMembers: ['verifyToken', 'ensureToken'],
+        joinChannel: ['verifyToken', 'ensureToken'],
+    }
+    /***************************************************************************
+     *                                                                          *
+     * Default policy for all controllers and actions (`true` allows public     *
+     * access)                                                                  *
+     *                                                                          *
+     ***************************************************************************/
 
-  // '*': true,
+    // '*': true,
 
-  /***************************************************************************
-   *                                                                          *
-   * Here's an example of mapping some policies to run before a controller    *
-   * and its actions                                                          *
-   *                                                                          *
-   ***************************************************************************/
-  // RabbitController: {
+    /***************************************************************************
+     *                                                                          *
+     * Here's an example of mapping some policies to run before a controller    *
+     * and its actions                                                          *
+     *                                                                          *
+     ***************************************************************************/
+    // RabbitController: {
 
-  // Apply the `false` policy as the default for all of RabbitController's actions
-  // (`false` prevents all access, which ensures that nothing bad happens to our rabbits)
-  // '*': false,
+    // Apply the `false` policy as the default for all of RabbitController's actions
+    // (`false` prevents all access, which ensures that nothing bad happens to our rabbits)
+    // '*': false,
 
-  // For the action `nurture`, apply the 'isRabbitMother' policy
-  // (this overrides `false` above)
-  // nurture	: 'isRabbitMother',
+    // For the action `nurture`, apply the 'isRabbitMother' policy
+    // (this overrides `false` above)
+    // nurture	: 'isRabbitMother',
 
-  // Apply the `isNiceToAnimals` AND `hasRabbitFood` policies
-  // before letting any users feed our rabbits
-  // feed : ['isNiceToAnimals', 'hasRabbitFood']
-  // }
+    // Apply the `isNiceToAnimals` AND `hasRabbitFood` policies
+    // before letting any users feed our rabbits
+    // feed : ['isNiceToAnimals', 'hasRabbitFood']
+    // }
 };

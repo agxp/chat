@@ -32,7 +32,7 @@ module.exports.routes = {
     },
 
     'POST /login': 'AccountController.login',
-    'POST /auth/trial': 'AccountController.trial',
+    'POST /trial': 'AccountController.trial',
     'POST /signup': 'AccountController.signup',
     'GET /auth/verify-email/:token': 'AccountController.verify_email',
     'GET /users/@me': 'UserController.me',
@@ -43,4 +43,9 @@ module.exports.routes = {
 
     'GET /channels/:id': 'ChannelController.getChannel',
     'POST /channels': 'ChannelController.createChannel',
+    'PATCH /channels/:id': 'ChannelController.editChannel',
+    'DELETE /channels/:id': 'ChannelController.deleteChannel',
+    'GET /channels/:id/members': 'ChannelController.getMembers',
+    'PUT /channels/:id/members': 'ChannelController.joinChannel',
+
 };

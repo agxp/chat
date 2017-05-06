@@ -27,6 +27,11 @@ module.exports = {
             required: true
         },
 
+        icon: {
+            type: 'string', // b64
+            defaultsTo: ''
+        },
+
         topic: {
             type: 'string',
             defaultsTo: 'my awesome channel',
@@ -45,8 +50,10 @@ module.exports = {
         },
 
         members: {
-            type: 'array',
-            defaultsTo: []
+            // type: 'array',
+            // defaultsTo: []
+            collection: 'user',
+            via: 'channels'
         }
     }
 };

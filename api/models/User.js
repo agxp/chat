@@ -54,7 +54,7 @@ module.exports = {
             defaultsTo: false
         },
 
-        toJSON: function () {
+        toJSON: function() {
             var values = this.toObject();
             delete values.password;
             return values;
@@ -69,8 +69,11 @@ module.exports = {
 
         // contains all the channels a user is currently part of
         channels: {
-            type: 'array',
-            defaultsTo: [],
+            // type: 'array',
+            // defaultsTo: [],
+            collection: 'channel',
+            via: 'members',
+            dominant: true
         },
     },
 

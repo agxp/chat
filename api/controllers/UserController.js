@@ -26,7 +26,7 @@ module.exports = {
             }
 
             sails.log('Found "%s"', u.username);
-            return res.json(u);
+            return res.ok(u);
         });
     },
 
@@ -41,7 +41,7 @@ module.exports = {
                 }
                 u = u[0];
 
-                sails.log('Found "%s"', u);
+                sails.log('Found "%s"', u.username);
 
                 if (req.body.username)
                     u.username = req.body.username;
@@ -50,21 +50,21 @@ module.exports = {
 
                 u.save((err) => {
                     if (err) console.log(err)
-                    else res.json(u);
+                    else res.ok(u);
                 })
 
             });
     },
 
     getChannels: (req, res) => {
-        User.find(req.access_token.user).limit(1)
+        User.find(req.access_token.user).limit(1).populate('channels')
             .exec((err, u) => {
                 if (err) return res.serverError(err)
                 else if (!u) return res.notFound('cannot find');
+                u = u[0];
+                // console.log(u);
 
-                console.log(u[0]);
-
-                return res.json(u[0].channels);
+                return res.ok(u.channels);
             })
     }
 };

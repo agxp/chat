@@ -47,5 +47,11 @@ module.exports.routes = {
     'DELETE /channels/:id': 'ChannelController.deleteChannel',
     'GET /channels/:id/members': 'ChannelController.getMembers',
     'PUT /channels/:id/members': 'ChannelController.joinChannel',
+    'DELETE /channels/:id/members': 'ChannelController.leaveChannel',
+
+    'POST /channels/:id/messages': 'ChannelController.postMessage',
+    'GET /channels/:id/messages': 'ChannelController.getMessages',
+    'PATCH /channels/:id/messages/:message_id': 'ChannelController.editMessage',
+    'DELETE /channels/:id/messages/:message_id': 'ChannelController.deleteMessage',
 
 };

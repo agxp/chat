@@ -19,6 +19,7 @@
 
 module.exports.policies = {
 
+    '*': ['verifyToken', 'ensureToken'],
 
     AccountController: {
         login: true,
@@ -26,20 +27,6 @@ module.exports.policies = {
         signup: true
     },
 
-    UserController: {
-        me: ['verifyToken', 'ensureToken'],
-        editUser: ['verifyToken', 'ensureToken'],
-        getChannels: ['verifyToken', 'ensureToken'],
-    },
-
-    ChannelController: {
-        getChannel: ['verifyToken', 'ensureToken'],
-        createChannel: ['verifyToken', 'ensureToken'],
-        editChannel: ['verifyToken', 'ensureToken'],
-        deleteChannel: ['verifyToken', 'ensureToken'],
-        getMembers: ['verifyToken', 'ensureToken'],
-        joinChannel: ['verifyToken', 'ensureToken'],
-    }
     /***************************************************************************
      *                                                                          *
      * Default policy for all controllers and actions (`true` allows public     *

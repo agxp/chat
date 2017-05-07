@@ -116,10 +116,7 @@ module.exports = {
                 if (err) return res.serverError(err)
                 else if (!u) return res.notFound('cannot find');
 
-                if (!req.body.name) return res.serverError('missing parameter: name');
-
                 u = u[0];
-
                 Channel.findOne(req.params.id)
                     .exec((err, channel) => {
                         if (err) { return res.serverError(err); }
@@ -127,7 +124,9 @@ module.exports = {
 
 
                         channel.members.add(u.id);
+                        channel.member_count++;
                         channel.save();
+
                         sails.log('user ' + u.username + ' joined channel:', channel.name);
 
                         u.channels.add(channel.id);
@@ -136,6 +135,112 @@ module.exports = {
                         return res.ok(channel);
                     });
             });
-    }
+    },
+
+    leaveChannel: (req, res) => {
+        User.find(req.access_token.user).limit(1).populate('channels')
+            .exec((err, u) => {
+                if (err) return res.serverError(err)
+                else if (!u) return res.notFound('cannot find');
+
+                u = u[0];
+                Channel.findOne(req.params.id).populate('members')
+                    .exec((err, channel) => {
+                        if (err) { return res.serverError(err); }
+                        if (!channel) return res.notFound();
+
+
+                        channel.members.remove(u.id);
+                        channel.member_count--;
+                        channel.save();
+                        sails.log('user ' + u.username + ' left channel:', channel.name);
+
+                        u.channels.remove(channel.id);
+                        u.save();
+
+                        return res.ok();
+                    });
+            });
+    },
+
+    postMessage: (req, res) => {
+        Channel.findOne(req.params.id)
+            .exec((err, channel) => {
+                if (err) {
+                    return res.serverError(err);
+                }
+                if (!channel) {
+                    return res.notFound('Could not find channel, sorry.', req.body);
+                }
+
+                Message.create({
+                    channel_id: req.params.id,
+                    author: req.access_token.user,
+                    content: req.body.content
+                }).exec((err, message) => {
+                    if (err) return sails.serverError(err);
+
+                    if (req.body.mention_everyone) message.mention_everyone = true;
+                    if (req.body.mentions); // TODO handleMentions()
+                    if (req.body.attachments); // TODO handleAttachments()
+                    if (req.body.embeds); // TODO handleEmbeds()
+                    message.save();
+
+                    channel.last_message_id = message.id;
+                    channel.save();
+                    sails.log('message created in channel ' + channel.id + ': ', message.content);
+                    return res.ok(message);
+                })
+            });
+    },
+
+    editMessage: (req, res) => {
+        Message.findOne(req.params.message_id).exec((err, message) => {
+            if (err) return sails.serverError(err);
+            if (!message) return sails.notFound('couldnt find message');
+
+            if (message.author != req.access_token.user) return sails.forbidden();
+
+            if (!req.body.content) return sails.badRequest('missing content');
+
+            message.content = req.body.content;
+
+            if (req.body.mentions); // TODO handleMentions()
+            if (req.body.attachments); // TODO handleAttachments()
+            if (req.body.embeds); // TODO handleEmbeds()
+
+            message.save();
+
+            sails.log('message edited in channel ' + req.params.id + ': ', message.id);
+            return res.ok(message);
+        })
+    },
+
+    getMessages: (req, res) => {
+        // brute force, will fix later
+        Message.find({ channel_id: req.params.id }).sort('id DESC').limit(50)
+            .exec((err, messages) => {
+                if (err) return res.serverError(err)
+                else if (!messages) return res.notFound('cannot find');
+
+                return res.ok(messages);
+            })
+    },
+
+    deleteMessage: (req, res) => {
+
+        Message.findOne(req.params.message_id).exec((err, message) => {
+            if (err) return sails.serverError(err);
+            if (!message) return sails.notFound('couldnt find message');
+
+            if (message.author != req.access_token.user) return sails.forbidden();
+
+
+            message.destroy();
+
+            sails.log('message deleted in channel ' + req.params.id + ': ', message.id);
+            return res.ok(message);
+        })
+    },
 
 };

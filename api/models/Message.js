@@ -47,11 +47,6 @@ module.exports = {
             type: 'array'
         },
 
-        sent: {
-            type: 'boolean',
-            defaultsTo: false
-        },
-
         pinned: {
             type: 'boolean',
             defaultsTo: false

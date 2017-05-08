@@ -21,8 +21,11 @@ module.exports.policies = {
 
     '*': ['verifyToken', 'ensureToken'],
 
+    AppController: true,
+
     AccountController: {
         login: true,
+        trial: true,
         refreshToken: true,
         signup: true
     },

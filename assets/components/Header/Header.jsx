@@ -7,7 +7,7 @@ export default class Header extends Component {
 
   render() {
     return (
-      <div>Sails + React + Webpack</div>
+      <h1>Discord</h1>
     );
   }
 }

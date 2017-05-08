@@ -187,7 +187,6 @@ module.exports = {
     },
 
     verify_email: (req, res) => {
-        console.log("inside here");
         var params = requestHelpers.secureParameters(['token'], req, true);
 
         if (!params.isValid()) {

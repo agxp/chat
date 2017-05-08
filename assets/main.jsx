@@ -10,5 +10,6 @@ import NotFound from 'components/NotFound/NotFound';
 render(
   <Router history={browserHistory}>
     <Route path="/" component={App} />
+    <Route path="/channels/*" component={App} />
     <Route path="/*" component={NotFound} />
   </Router>, document.getElementById('app'));

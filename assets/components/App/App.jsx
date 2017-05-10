@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import Router, {Link, RouteHandler} from 'react-router';
+import React, { Component } from 'react';
+import Router, { Link, RouteHandler } from 'react-router';
 
 // components
 import Header from 'Header/Header';
 
-import {Row, Col, Input, Button} from 'react-materialize';
+import { Row, Col, Input, Button } from 'react-materialize';
 
 export default class App extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ export default class App extends Component {
     if (this.state.email && this.state.password) {
       // signup
     } else {
-      fetch('trial', {
+      fetch('api/trial', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -39,7 +39,8 @@ export default class App extends Component {
         .then(res => res.json())
         .then(resJson => {
           console.log(resJson.access_token)
-          this.setState({access_token: access_token});
+          sessionStorage.setItem('access_token', resJson.access_token);
+          window.location.href = '/channels/@me';
         }) // success
         .catch(err => console.log(err));
     }
@@ -47,14 +48,14 @@ export default class App extends Component {
   }
 
   onUsernameChange(event) {
-    this.setState({username: event.target.value});
+    this.setState({ username: event.target.value });
   }
 
   render() {
-    const {username, password, email} = this.state;
+    const { username, password, email } = this.state;
     return (
       <div class="app">
-        <Header/>
+        <Header />
         <section id="landing-hero" class="container">
           <Row className="content landing-cta">
             <h1>Welcome to a better chat app.</h1>
@@ -70,9 +71,9 @@ export default class App extends Component {
                   value={username}
                   label="Username"
                   onChange={this.onUsernameChange}
-                  />
+                />
                 <Col s={12} m={2}>
-                  <Button floating large className="red" icon="Go" waves="light"/>
+                  <Button floating large className="red" icon="Go" waves="light" />
                 </Col>
               </form>
             </Row>

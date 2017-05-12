@@ -27,12 +27,15 @@ module.exports.routes = {
     'POST /api/trial': 'AccountController.trial',
     'POST /api/signup': 'AccountController.signup',
     'GET /api/verify-email/:token': 'AccountController.verify_email',
+
+    'GET /api/users': 'User.find',
     'GET /api/users/@me': 'UserController.me',
     'PATCH /api/users/@me': 'UserController.editUser',
     'GET /api/users/@me/channels': 'UserController.getChannels',
     'GET /api/users/:id': 'UserController.getUser',
     'POST /api/refresh-token': 'AccountController.refreshToken',
 
+    'GET /api/channels': 'Channel.find',
     'GET /api/channels/:id': 'ChannelController.getChannel',
     'POST /api/channels': 'ChannelController.createChannel',
     'PATCH /api/channels/:id': 'ChannelController.editChannel',

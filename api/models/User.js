@@ -54,7 +54,7 @@ module.exports = {
             defaultsTo: false
         },
 
-        toJSON: function() {
+        toJSON: function () {
             var values = this.toObject();
             delete values.password;
             return values;
@@ -75,6 +75,12 @@ module.exports = {
             via: 'members',
             dominant: true
         },
+
+        messages: {
+            collection: 'message',
+            via: 'author',
+            dominant: true
+        }
     },
 
     beforeCreate: encryptPassword,

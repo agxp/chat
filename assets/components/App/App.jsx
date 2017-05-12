@@ -39,7 +39,7 @@ export default class App extends Component {
         .then(res => res.json())
         .then(resJson => {
           console.log(resJson.access_token)
-          sessionStorage.setItem('access_token', resJson.access_token);
+          localStorage.setItem('access_token', resJson.access_token);
           window.location.href = '/channels/@me';
         }) // success
         .catch(err => console.log(err));

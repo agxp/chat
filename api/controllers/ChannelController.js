@@ -34,8 +34,10 @@ module.exports = {
                 Channel.create({
                     name: req.body.name,
                     admin_id: u.id
-                }).exec(function(err, channel) {
-                    if (err) { return res.serverError(err); }
+                }).exec(function (err, channel) {
+                    if (err) {
+                        return res.serverError(err);
+                    }
 
                     if (req.body.topic) channel.topic = req.body.topic;
                     if (req.body.icon) channel.icon = req.body.icon;
@@ -119,7 +121,9 @@ module.exports = {
                 u = u[0];
                 Channel.findOne(req.params.id)
                     .exec((err, channel) => {
-                        if (err) { return res.serverError(err); }
+                        if (err) {
+                            return res.serverError(err);
+                        }
                         if (!channel) return res.notFound();
 
 
@@ -146,7 +150,9 @@ module.exports = {
                 u = u[0];
                 Channel.findOne(req.params.id).populate('members')
                     .exec((err, channel) => {
-                        if (err) { return res.serverError(err); }
+                        if (err) {
+                            return res.serverError(err);
+                        }
                         if (!channel) return res.notFound();
 
 
@@ -175,10 +181,16 @@ module.exports = {
 
                 Message.create({
                     channel_id: req.params.id,
-                    author: req.access_token.user,
                     content: req.body.content
                 }).exec((err, message) => {
                     if (err) return sails.serverError(err);
+
+                    message.author.add(req.access_token.user);
+
+                    User.findOne(req.access_token.user).populate('messages').exec((err, u) => {
+                        u.messages.add(message.id)
+                        u.save();
+                    })
 
                     if (req.body.mention_everyone) message.mention_everyone = true;
                     if (req.body.mentions); // TODO handleMentions()
@@ -195,11 +207,11 @@ module.exports = {
     },
 
     editMessage: (req, res) => {
-        Message.findOne(req.params.message_id).exec((err, message) => {
+        Message.findOne(req.params.message_id).populate('author').exec((err, message) => {
             if (err) return sails.serverError(err);
             if (!message) return sails.notFound('couldnt find message');
 
-            if (message.author != req.access_token.user) return sails.forbidden();
+            if (message.author.id != req.access_token.user) return sails.forbidden();
 
             if (!req.body.content) return sails.badRequest('missing content');
 
@@ -218,7 +230,9 @@ module.exports = {
 
     getMessages: (req, res) => {
         // brute force, will fix later
-        Message.find({ channel_id: req.params.id }).sort('id DESC').limit(50)
+        Message.find({
+                channel_id: req.params.id
+            }).populate('author').sort('id DESC').limit(50)
             .exec((err, messages) => {
                 if (err) return res.serverError(err)
                 else if (!messages) return res.notFound('cannot find');
@@ -229,11 +243,11 @@ module.exports = {
 
     deleteMessage: (req, res) => {
 
-        Message.findOne(req.params.message_id).exec((err, message) => {
+        Message.findOne(req.params.message_id).populate('author').exec((err, message) => {
             if (err) return sails.serverError(err);
             if (!message) return sails.notFound('couldnt find message');
 
-            if (message.author != req.access_token.user) return sails.forbidden();
+            if (message.author.id != req.access_token.user) return sails.forbidden();
 
 
             message.destroy();

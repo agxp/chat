@@ -5,9 +5,15 @@ import Router, { Link, RouteHandler } from 'react-router';
 
 import { Row, Col, Input, Button } from 'react-materialize';
 
+import ChannelList from 'App/ChannelList';
+import Channel from 'App/Channel';
+
 export default class Chat extends Component {
     constructor(props) {
         super(props);
+        let t = localStorage.getItem('access_token')
+        if (t === null || t === '')
+            window.location.href = '/';
         console.log(this.props.params.channel_id);
     }
 
@@ -38,10 +44,17 @@ export default class Chat extends Component {
 
     render() {
         // const { username, password, email } = this.state;
+        const channel_id = this.props.params.channel_id;
+
         return (
-            <div class="app">
-                hello
-            </div>
+            <Row className="chat" >
+                <Col s={2} m={2} className="channel-list">
+                    <ChannelList />
+                </Col>
+                <Col s={10} m={10} className="channel-full">
+                    <Channel />
+                </Col>
+            </Row>
         );
     }
 }

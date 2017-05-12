@@ -17,8 +17,8 @@ module.exports = {
         },
 
         author: {
-            type: 'integer',
-            required: true
+            collection: 'user',
+            via: 'messages'
         },
 
         content: {

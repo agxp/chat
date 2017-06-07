@@ -6,54 +6,53 @@
  */
 
 module.exports = {
+  schema: true,
+  autoPK: true,
 
-    schema: true,
-    autoPK: true,
+  attributes: {
+    name: {
+      type: "string",
+      required: true
+    },
 
-    attributes: {
-        name: {
-            type: 'string',
-            required: true
-        },
+    admin_id: {
+      type: "integer",
+      required: true
+    },
 
-        admin_id: {
-            type: 'integer',
-            required: true
-        },
+    member_count: {
+      type: "integer",
+      defaultsTo: 1,
+      required: true
+    },
 
-        member_count: {
-            type: 'integer',
-            defaultsTo: 1,
-            required: true
-        },
+    icon: {
+      type: "string", // b64
+      defaultsTo: ""
+    },
 
-        icon: {
-            type: 'string', // b64
-            defaultsTo: ''
-        },
+    topic: {
+      type: "string",
+      defaultsTo: "my awesome channel"
+    },
 
-        topic: {
-            type: 'string',
-            defaultsTo: 'my awesome channel',
-        },
+    last_message_id: {
+      type: "integer",
+      defaultsTo: -1,
+      required: true
+    },
 
-        last_message_id: {
-            type: 'integer',
-            defaultsTo: -1,
-            required: true
-        },
+    is_private: {
+      type: "boolean",
+      defaultsTo: false,
+      required: true
+    },
 
-        is_private: {
-            type: 'boolean',
-            defaultsTo: false,
-            required: true
-        },
-
-        members: {
-            // type: 'array',
-            // defaultsTo: []
-            collection: 'user',
-            via: 'channels'
-        }
+    members: {
+      // type: 'array',
+      // defaultsTo: []
+      collection: "user",
+      via: "channels"
     }
+  }
 };

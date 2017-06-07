@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 export default class Header extends Component {
   constructor(props) {
@@ -6,8 +6,6 @@ export default class Header extends Component {
   }
 
   render() {
-    return (
-      <h1>Discord</h1>
-    );
+    return <h1>Discord</h1>;
   }
 }

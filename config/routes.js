@@ -21,39 +21,39 @@
  */
 
 module.exports.routes = {
+  // NOTE all routes defined before the 'GET /*' will override
+  "POST /api/login": "AccountController.login",
+  "POST /api/trial": "AccountController.trial",
+  "POST /api/signup": "AccountController.signup",
+  "GET /api/verify-email/:token": "AccountController.verify_email",
 
-    // NOTE all routes defined before the 'GET /*' will override
-    'POST /api/login': 'AccountController.login',
-    'POST /api/trial': 'AccountController.trial',
-    'POST /api/signup': 'AccountController.signup',
-    'GET /api/verify-email/:token': 'AccountController.verify_email',
+  "GET /api/users": "User.find",
+  "GET /api/users/@me": "UserController.me",
+  "PATCH /api/users/@me": "UserController.editUser",
+  "GET /api/users/@me/channels": "UserController.getChannels",
+  "GET /api/users/:id": "UserController.getUser",
+  "POST /api/refresh-token": "AccountController.refreshToken",
 
-    'GET /api/users': 'User.find',
-    'GET /api/users/@me': 'UserController.me',
-    'PATCH /api/users/@me': 'UserController.editUser',
-    'GET /api/users/@me/channels': 'UserController.getChannels',
-    'GET /api/users/:id': 'UserController.getUser',
-    'POST /api/refresh-token': 'AccountController.refreshToken',
+  "GET /api/channels": "Channel.find",
+  "GET /api/channels/:id": "ChannelController.getChannel",
+  "POST /api/channels": "ChannelController.createChannel",
+  "PATCH /api/channels/:id": "ChannelController.editChannel",
+  "DELETE /api/channels/:id": "ChannelController.deleteChannel",
+  "GET /api/channels/:id/members": "ChannelController.getMembers",
+  "PUT /api/channels/:id/members": "ChannelController.joinChannel",
+  "DELETE /api/channels/:id/members": "ChannelController.leaveChannel",
 
-    'GET /api/channels': 'Channel.find',
-    'GET /api/channels/:id': 'ChannelController.getChannel',
-    'POST /api/channels': 'ChannelController.createChannel',
-    'PATCH /api/channels/:id': 'ChannelController.editChannel',
-    'DELETE /api/channels/:id': 'ChannelController.deleteChannel',
-    'GET /api/channels/:id/members': 'ChannelController.getMembers',
-    'PUT /api/channels/:id/members': 'ChannelController.joinChannel',
-    'DELETE /api/channels/:id/members': 'ChannelController.leaveChannel',
+  "POST /api/channels/:id/messages": "ChannelController.postMessage",
+  "GET /api/channels/:id/messages": "ChannelController.getMessages",
+  "PATCH /api/channels/:id/messages/:message_id":
+    "ChannelController.editMessage",
+  "DELETE /api/channels/:id/messages/:message_id":
+    "ChannelController.deleteMessage",
 
-    'POST /api/channels/:id/messages': 'ChannelController.postMessage',
-    'GET /api/channels/:id/messages': 'ChannelController.getMessages',
-    'PATCH /api/channels/:id/messages/:message_id': 'ChannelController.editMessage',
-    'DELETE /api/channels/:id/messages/:message_id': 'ChannelController.deleteMessage',
-
-    // All GET requests are directed to the app controller which renders our app.
-    'GET /*': {
-        controller: 'AppController',
-        action: 'index',
-        skipAssets: true,
-    },
-
+  // All GET requests are directed to the app controller which renders our app.
+  "GET /*": {
+    controller: "AppController",
+    action: "index",
+    skipAssets: true
+  }
 };

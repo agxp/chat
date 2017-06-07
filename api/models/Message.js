@@ -6,51 +6,49 @@
  */
 
 module.exports = {
+  schema: true,
+  autoPK: true,
 
-    schema: true,
-    autoPK: true,
+  attributes: {
+    channel_id: {
+      type: "integer",
+      required: true
+    },
 
-    attributes: {
-        channel_id: {
-            type: 'integer',
-            required: true
-        },
+    author: {
+      collection: "user",
+      via: "messages"
+    },
 
-        author: {
-            collection: 'user',
-            via: 'messages'
-        },
+    content: {
+      type: "string",
+      required: true
+    },
 
-        content: {
-            type: 'string',
-            required: true
-        },
+    mention_everyone: {
+      type: "boolean",
+      defaultsTo: false
+    },
 
-        mention_everyone: {
-            type: 'boolean',
-            defaultsTo: false,
-        },
+    mentions: {
+      type: "array"
+    },
 
-        mentions: {
-            type: 'array'
-        },
+    attachments: {
+      type: "array"
+    },
 
-        attachments: {
-            type: 'array'
-        },
+    embeds: {
+      type: "array"
+    },
 
-        embeds: {
-            type: 'array'
-        },
+    reactions: {
+      type: "array"
+    },
 
-        reactions: {
-            type: 'array'
-        },
-
-        pinned: {
-            type: 'boolean',
-            defaultsTo: false
-        }
-
+    pinned: {
+      type: "boolean",
+      defaultsTo: false
     }
+  }
 };

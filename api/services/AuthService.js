@@ -1,8 +1,8 @@
 "use strict";
 
-const jwt    = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const _      = require('lodash');
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const _ = require("lodash");
 
 // todo: remove this function when https://github.com/auth0/node-jsonwebtoken/pull/172 is merged
 jwt.refresh = function(token, expiresIn, secretOrPrivateKey, callback) {
@@ -19,7 +19,7 @@ jwt.refresh = function(token, expiresIn, secretOrPrivateKey, callback) {
   } else {
     done = function(err, data) {
       if (err) {
-        console.log('err : ' + err);
+        console.log("err : " + err);
         throw err;
       }
       return data;
@@ -30,31 +30,29 @@ jwt.refresh = function(token, expiresIn, secretOrPrivateKey, callback) {
   var payload;
 
   if (token.header) {
-    header  = token['header'];
-    payload = token['payload'];
-  }
-  else {
+    header = token["header"];
+    payload = token["payload"];
+  } else {
     payload = token;
   }
 
   var optionMapping = {
-    exp: 'expiresIn',
-    aud: 'audience',
-    nbf: 'notBefore',
-    iss: 'issuer',
-    sub: 'subject',
-    jti: 'jwtid',
-    alg: 'algorithm'
+    exp: "expiresIn",
+    aud: "audience",
+    nbf: "notBefore",
+    iss: "issuer",
+    sub: "subject",
+    jti: "jwtid",
+    alg: "algorithm"
   };
   var newToken;
-  var obj           = {};
-  var options       = {};
+  var obj = {};
+  var options = {};
 
   for (var key in payload) {
     if (Object.keys(optionMapping).indexOf(key) === -1) {
       obj[key] = payload[key];
-    }
-    else {
+    } else {
       options[optionMapping[key]] = payload[key];
     }
   }
@@ -62,25 +60,24 @@ jwt.refresh = function(token, expiresIn, secretOrPrivateKey, callback) {
   if (header) {
     options.header = {};
     for (var key in header) {
-      if (key !== 'typ') {    //don't care about typ -> always JWT
+      if (key !== "typ") {
+        //don't care about typ -> always JWT
         if (Object.keys(optionMapping).indexOf(key) === -1) {
           options.header[key] = header[key];
-        }
-        else {
+        } else {
           options[optionMapping[key]] = header[key];
         }
       }
     }
-  }
-  else {
-    console.log('No algorithm was defined for token refresh - using default');
+  } else {
+    console.log("No algorithm was defined for token refresh - using default");
   }
 
   if (!token.iat) {
-    options['noTimestamp'] = true;
+    options["noTimestamp"] = true;
   }
 
-  options['expiresIn'] = expiresIn;
+  options["expiresIn"] = expiresIn;
 
   newToken = jwt.sign(obj, secretOrPrivateKey, options);
   return done(null, newToken);
@@ -88,7 +85,7 @@ jwt.refresh = function(token, expiresIn, secretOrPrivateKey, callback) {
 
 class AuthService {
   constructor() {
-    this.jwt            = jwt;
+    this.jwt = jwt;
     this.payloadBuilder = this.defaultPayloadBuilder;
   }
 
@@ -116,7 +113,7 @@ class AuthService {
         }
 
         if (!isValid) {
-          return reject('invalid_credentials');
+          return reject("invalid_credentials");
         }
 
         return resolve(true);
@@ -125,11 +122,13 @@ class AuthService {
   }
 
   issueTokenForUser(user) {
-    return this.issueToken(this.payloadBuilder(user, {user: user.id, username: user.username}));
+    return this.issueToken(
+      this.payloadBuilder(user, { user: user.id, username: user.username })
+    );
   }
 
   issueToken(payload, options) {
-    options           = options || {};
+    options = options || {};
     options.expiresIn = options.expiresIn || this.config.accessTokenTtl;
 
     return this.jwt.sign(payload, this.secret, options);
@@ -138,7 +137,10 @@ class AuthService {
   issueRefreshTokenForUser(token) {
     var payload = this.decodeToken(token);
 
-    return this.issueToken({unique: payload.iat + '.' + payload.user}, {expiresIn: this.config.refreshTokenTtl});
+    return this.issueToken(
+      { unique: payload.iat + "." + payload.user },
+      { expiresIn: this.config.refreshTokenTtl }
+    );
   }
 
   verifyToken(testToken) {
@@ -180,20 +182,23 @@ class AuthService {
 
     // check authorization headers
     if (req.headers && req.headers.authorization) {
-      var parts = req.headers.authorization.split(' ');
+      var parts = req.headers.authorization.split(" ");
 
       if (parts.length !== 2) {
-        throw {error: 'invalid_token', details: 'Format is Authorization: Bearer [access_token]'};
+        throw {
+          error: "invalid_token",
+          details: "Format is Authorization: Bearer [access_token]"
+        };
       }
 
-      var scheme      = parts[0];
+      var scheme = parts[0];
       var credentials = parts[1];
 
       if (/^Bearer$/i.test(scheme)) {
         accessToken = credentials;
       }
-    } else if (req.param('access_token')) {
-      accessToken = req.param('access_token');
+    } else if (req.param("access_token")) {
+      accessToken = req.param("access_token");
     } else {
       // request didn't contain required JWT token
       return null;
@@ -206,17 +211,20 @@ class AuthService {
   }
 
   validateRefreshToken(accessToken, refreshToken) {
-    var decodedToken = this.decodeToken(accessToken, {complete: true}) || {};
+    var decodedToken = this.decodeToken(accessToken, { complete: true }) || {};
 
     if (_.isEmpty(decodedToken)) {
-      throw 'invalid_access_token';
+      throw "invalid_access_token";
     }
 
     return this.verifyToken(refreshToken)
       .then(refreshToken => {
         // verify if the refreshToken is generated together with the token
-        if (refreshToken.unique !== (decodedToken.payload.iat + '.' + decodedToken.payload.user)) {
-          throw 'invalid_refresh_token';
+        if (
+          refreshToken.unique !==
+          decodedToken.payload.iat + "." + decodedToken.payload.user
+        ) {
+          throw "invalid_refresh_token";
         }
 
         delete decodedToken.payload.iat; // generate a new one
@@ -225,12 +233,14 @@ class AuthService {
       })
       .then(accessToken => {
         return {
-          access_token : accessToken,
+          access_token: accessToken,
           refresh_token: this.issueRefreshTokenForUser(accessToken)
         };
       })
       .catch(error => {
-        throw error.name === 'TokenExpiredError' ? 'expired_refresh_token' : 'invalid_refresh_token';
+        throw error.name === "TokenExpiredError"
+          ? "expired_refresh_token"
+          : "invalid_refresh_token";
       });
   }
 
@@ -238,12 +248,12 @@ class AuthService {
     payload = payload || {};
 
     this.config.payloadProperties.forEach(property => {
-      if (typeof property === 'string') {
-        return payload[property] = user[property];
+      if (typeof property === "string") {
+        return (payload[property] = user[property]);
       }
 
-      let propertyKey      = Object.getOwnPropertyNames(property)[0];
-      let properties       = property[propertyKey];
+      let propertyKey = Object.getOwnPropertyNames(property)[0];
+      let properties = property[propertyKey];
       payload[propertyKey] = {};
 
       if (!user[propertyKey]) {
@@ -251,7 +261,8 @@ class AuthService {
       }
 
       properties.forEach(nestedProperty => {
-        payload[propertyKey][nestedProperty] = user[propertyKey][nestedProperty];
+        payload[propertyKey][nestedProperty] =
+          user[propertyKey][nestedProperty];
       });
     });
 

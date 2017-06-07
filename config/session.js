@@ -13,7 +13,6 @@
  */
 
 module.exports.session = {
-
   /***************************************************************************
   *                                                                          *
   * Session secret is automatically generated when your new app is created   *
@@ -21,8 +20,7 @@ module.exports.session = {
   * of your users, forcing them to log in again.                             *
   *                                                                          *
   ***************************************************************************/
-  secret: '6e8f601c18dba5f583d18d89ad2b20be',
-
+  secret: "6e8f601c18dba5f583d18d89ad2b20be"
 
   /***************************************************************************
   *                                                                          *
@@ -59,7 +57,6 @@ module.exports.session = {
   // pass: <redis auth password>,
   // prefix: 'sess:',
 
-
   /***************************************************************************
   *                                                                          *
   * Uncomment the following lines to use your Mongo adapter as a session     *
@@ -87,5 +84,4 @@ module.exports.session = {
   // auto_reconnect: false,
   // ssl: false,
   // stringify: true
-
 };

@@ -1,5 +1,5 @@
-var bcrypt   = require('bcrypt');
-var {Entity} = require('wetland');
+var bcrypt = require("bcrypt");
+var { Entity } = require("wetland");
 
 module.exports = class User extends Entity {
   /**
@@ -11,17 +11,17 @@ module.exports = class User extends Entity {
    */
   static setMapping(mapping) {
     // Primary key
-    mapping.forProperty('id').increments().primary();
+    mapping.forProperty("id").increments().primary();
 
     // Indexes
-    mapping.index('username');
-    mapping.index('email');
+    mapping.index("username");
+    mapping.index("email");
 
     // Fields
-    mapping.field('username', {type: 'string'});
-    mapping.field('email', {type: 'string'});
-    mapping.field('emailConfirmed', {type: 'boolean', defaultTo: false});
-    mapping.field('password', {type: 'string', nullable: false});
+    mapping.field("username", { type: "string" });
+    mapping.field("email", { type: "string" });
+    mapping.field("emailConfirmed", { type: "boolean", defaultTo: false });
+    mapping.field("password", { type: "string", nullable: false });
   }
 
   /**
@@ -52,7 +52,7 @@ module.exports = class User extends Entity {
     try {
       // check if the password is already hashed
       bcrypt.getRounds(values.password);
-    } catch(e) {
+    } catch (e) {
       return bcrypt.hash(this.password, 10).then(hash => {
         this.password = hash;
       });

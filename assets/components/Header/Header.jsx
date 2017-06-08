@@ -6,6 +6,6 @@ export default class Header extends Component {
   }
 
   render() {
-    return <h1>Discord</h1>;
+    return <h1 style={{ marginTop: "5%" }}>Discord</h1>;
   }
 }

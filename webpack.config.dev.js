@@ -55,11 +55,11 @@ module.exports = {
         loader: "file-loader?name=[path][name].[ext]"
       },
       {
-        test: /\.jsx?$/, // react files
+        test: /\.js|jsx?$/, // react files
         exclude: /node_modules/,
         loaders: [
           "react-hot",
-          "babel?presets[]=es2015,presets[]=stage-0,presets[]=react"
+          "babel?presets[]=es2015,presets[]=stage-0,presets[]=react,plugins[]=transform-decorators-legacy"
         ],
         include: path.join(__dirname, "assets")
       }

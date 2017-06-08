@@ -11,15 +11,20 @@ import {
   IndexRedirect
 } from "react-router";
 
-import App from "components/App/App";
+import { Provider } from "react-redux";
+
+import Login from "components/App/Login";
 import Chat from "components/App/Chat";
 import NotFound from "components/NotFound/NotFound";
+import store from "./store";
 
 render(
-  <Router history={browserHistory}>
-    <Route path="/" component={App} />
-    <Route path="/channels/:channel_id" component={Chat} />
-    <Route path="/*" component={NotFound} />
-  </Router>,
+  <Provider store={store}>
+    <Router history={browserHistory}>
+      <Route path="/" component={Login} />
+      <Route path="/channels/:channel_id" component={Chat} />
+      <Route path="/*" component={NotFound} />
+    </Router>
+  </Provider>,
   document.getElementById("app")
 );

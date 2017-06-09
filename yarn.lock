@@ -2112,6 +2112,10 @@ ejs@2.3.4:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/ejs/-/ejs-2.3.4.tgz#3c76caa09664b3583b0037af9dc136e79ec68b98"
 
+element-class@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/element-class/-/element-class-0.2.2.tgz#9d3bbd0767f9013ef8e1c8ebe722c1402a60050e"
+
 emojis-list@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/emojis-list/-/emojis-list-2.1.0.tgz#4daa4d9db00f9819880c79fa457ae5b09a1fd389"
@@ -4065,7 +4069,7 @@ lodash@3.10.1, lodash@^3.10.1, lodash@^3.8.0, lodash@~3.10.1:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-lodash@>=2.4.x, lodash@^4.0.0, lodash@^4.0.1, lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.8.2:
+lodash@>=2.4.x, lodash@^4.0.0, lodash@^4.0.1, lodash@^4.14.0, lodash@^4.16.1, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.8.2:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -5443,7 +5447,14 @@ react-addons-test-utils@^15.0.1:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
 
-react-dom@^15.0.1, react-dom@^15.4.2:
+"react-addons-update@^0.14.0 || ^15.0.0":
+  version "15.5.2"
+  resolved "https://registry.yarnpkg.com/react-addons-update/-/react-addons-update-15.5.2.tgz#0ada50494387b17238999ee9662f9f3fc38f935d"
+  dependencies:
+    fbjs "^0.8.9"
+    object-assign "^4.1.0"
+
+"react-dom@^0.14.0 || ^15.0.0", react-dom@^15.0.1, react-dom@^15.4.2:
   version "15.4.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.4.2.tgz#015363f05b0a1fd52ae9efdd3a0060d90695208f"
   dependencies:
@@ -5491,6 +5502,16 @@ react-router@^2.3.0:
     invariant "^2.2.1"
     loose-envify "^1.2.0"
     warning "^3.0.0"
+
+react-toastr@^2.8.2:
+  version "2.8.2"
+  resolved "https://registry.yarnpkg.com/react-toastr/-/react-toastr-2.8.2.tgz#55bfe8a5b1adc7a09e9fa14ddf428575876f42e1"
+  dependencies:
+    classnames "^2.2.5"
+    element-class "^0.2.2"
+    lodash "^4.16.1"
+    react-addons-update "^0.14.0 || ^15.0.0"
+    react-dom "^0.14.0 || ^15.0.0"
 
 react@^15.0.1, react@^15.4.2:
   version "15.4.2"

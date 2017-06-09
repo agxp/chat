@@ -24,13 +24,6 @@ function mapDispatchToProps(dispatch) {
 }
 @connect(mapStateToProps, mapDispatchToProps)
 export default class Chat extends Component {
-  constructor(props) {
-    super(props);
-    let t = localStorage.getItem("token");
-    if (t === null || t === "") window.location.href = "/login";
-    console.log(this.props.params.channel_id);
-  }
-
   postMessage(event) {
     // if (this.state.email && this.state.password) {
     //     // signup
@@ -58,6 +51,8 @@ export default class Chat extends Component {
 
   render() {
     // const { username, password, email } = this.state;
+    if (!this.props.token) browserHistory.push("/login");
+
     const channel_id = this.props.params.channel_id;
 
     return (

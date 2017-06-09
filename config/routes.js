@@ -24,7 +24,7 @@ module.exports.routes = {
   // NOTE all routes defined before the 'GET /*' will override
   "POST /api/login": "AccountController.login",
   "POST /api/trial": "AccountController.trial",
-  "POST /api/register": "AccountController.register",
+  "POST /api/register": "AccountController.signup",
   "GET /api/verify-email/:token": "AccountController.verify_email",
 
   "GET /api/users": "User.find", // DISABLE IN PRODUCTION

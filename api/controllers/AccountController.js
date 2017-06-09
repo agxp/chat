@@ -128,7 +128,7 @@ module.exports = {
       .catch(res.badRequest);
   },
 
-  register: (req, res) => {
+  signup: (req, res) => {
     var authConfig = sails.config.auth;
     var loginProperty = authConfig.identityOptions.loginProperty;
     var paramBlueprint = authConfig.identityOptions.parameterBlueprint.concat([

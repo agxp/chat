@@ -128,7 +128,7 @@ module.exports = {
       .catch(res.badRequest);
   },
 
-  signup: (req, res) => {
+  register: (req, res) => {
     var authConfig = sails.config.auth;
     var loginProperty = authConfig.identityOptions.loginProperty;
     var paramBlueprint = authConfig.identityOptions.parameterBlueprint.concat([
@@ -209,6 +209,7 @@ module.exports = {
         }
 
         accessToken = authService.issueTokenForUser(user);
+        console.log(user);
 
         res.ok({
           access_token: accessToken,

@@ -17,7 +17,7 @@ h1 {
 
 p {
     color: white;
-    opacity: 0.6
+    opacity: 0.6;
 }
 
 .container {
@@ -27,6 +27,10 @@ p {
 
 .channel-list {
     background-color: red;
+}
+
+#landing-hero {
+    background-color: rgba(40, 43, 48, 0.75);
 }
 
 .landing-cta {

@@ -12,8 +12,8 @@ import * as actionCreators from "../../actions/auth";
 
 function mapStateToProps(state) {
   return {
-    isAuthenticating: state.auth.isAuthenticating,
-    statusText: state.auth.statusText
+    isRegistering: state.auth.isRegistering,
+    registerStatusText: state.auth.registerStatusText
   };
 }
 
@@ -22,12 +22,13 @@ function mapDispatchToProps(dispatch) {
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-export default class Login extends Component {
+export default class Register extends Component {
   onSubmit(event) {
     event.preventDefault();
+    const username = this.refs.username;
     const email = this.refs.email;
     const password = this.refs.password;
-    this.props.loginUser(email.value, password.value);
+    this.props.registerUser(username.value, email.value, password.value);
   }
 
   render() {
@@ -36,13 +37,12 @@ export default class Login extends Component {
       borderRadius: "10px",
       textIndent: "10px"
     };
-
     return (
       <div>
         <Header />
         <section id="landing-hero" class="container">
           <Row className="content landing-cta">
-            <h1>Welcome back.</h1>
+            <h1>Create an Account</h1>
             <Row className="buttons center-align">
               <form
                 onSubmit={this.onSubmit.bind(this)}
@@ -60,6 +60,15 @@ export default class Login extends Component {
                   />
                   <input
                     style={style}
+                    ref="username"
+                    id="username"
+                    className="validate"
+                    type="text"
+                    placeholder="username"
+                  />
+
+                  <input
+                    style={style}
                     ref="password"
                     id="password"
                     className="validate"
@@ -73,7 +82,7 @@ export default class Login extends Component {
               </form>
             </Row>
             <p>
-              Need have an account? <Link to="/register">Register</Link>
+              Already have an account? <Link to="/login">Login</Link>
             </p>
           </Row>
         </section>

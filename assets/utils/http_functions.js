@@ -18,7 +18,7 @@ export function create_user(username, email, password) {
       method: "POST",
       body: JSON.stringify({ username })
     });
-  return fetch("api/signup", {
+  return fetch("api/register", {
     method: "POST",
     body: JSON.stringify({
       username,
@@ -29,12 +29,15 @@ export function create_user(username, email, password) {
 }
 
 export function get_token(email, password) {
-  return axios.post("api/login", {
-    email: email,
-    password: password
+  return fetch("api/login", {
+    method: "POST",
+    body: JSON.stringify({
+      email,
+      password
+    })
   });
 }
 
 export function data_about_user(token) {
-  return axios.get("api/user/@me", tokenConfig(token));
+  return fetch("api/user/@me", tokenConfig(token));
 }

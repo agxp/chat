@@ -12,8 +12,8 @@ import * as actionCreators from "../../actions/auth";
 
 function mapStateToProps(state) {
   return {
-    isAuthenticating: state.auth.isAuthenticating,
-    statusText: state.auth.statusText
+    isRegistering: state.auth.isRegistering,
+    registerStatusText: state.auth.registerStatusText
   };
 }
 
@@ -22,12 +22,12 @@ function mapDispatchToProps(dispatch) {
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-export default class Login extends Component {
+export default class Register extends Component {
   onSubmit(event) {
     event.preventDefault();
-    const email = this.refs.email;
-    const password = this.refs.password;
-    this.props.loginUser(email.value, password.value);
+    const input = this.refs.username;
+    console.log(input.value);
+    this.props.registerUser(input.value, "trial", "trial", "channels/@me");
   }
 
   render() {
@@ -36,44 +36,41 @@ export default class Login extends Component {
       borderRadius: "10px",
       textIndent: "10px"
     };
-
     return (
       <div>
         <Header />
         <section id="landing-hero" class="container">
           <Row className="content landing-cta">
-            <h1>Welcome back.</h1>
+            <h1>Welcome to a better chat app.</h1>
+            <p>
+              A realtime chat app inspired by Discord and Slack. It's going to
+              have a lot of features
+            </p>
+            <p>
+              Try it out without an email!
+            </p>
             <Row className="buttons center-align">
               <form
                 onSubmit={this.onSubmit.bind(this)}
                 className="center-align"
-                style={{ marginTop: "5%" }}
               >
-                <Col s={6} offset="s3">
+                <Col s={7} offset="s2">
                   <input
                     style={style}
-                    ref="email"
-                    id="email"
+                    ref="username"
+                    id="username"
                     className="validate"
                     type="text"
-                    placeholder="email"
+                    placeholder="enter a username"
                   />
-                  <input
-                    style={style}
-                    ref="password"
-                    id="password"
-                    className="validate"
-                    type="password"
-                    placeholder="password"
-                  />
-                  <Row>
-                    <Button type="submit" icon="done" waves="light" />
-                  </Row>
+                </Col>
+                <Col s={1} offset="4">
+                  <Button type="submit" icon="done" waves="light" />
                 </Col>
               </form>
             </Row>
             <p>
-              Need have an account? <Link to="/register">Register</Link>
+              Already have an account? <Link to="/login">Login</Link>
             </p>
           </Row>
         </section>

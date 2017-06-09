@@ -67,8 +67,8 @@ export function loginUser(email, password) {
       .then(parseJSON)
       .then(response => {
         try {
-          dispatch(loginUserSuccess(response.token));
-          browserHistory.push("/main");
+          dispatch(loginUserSuccess(response.access_token));
+          browserHistory.push("/channels/@me");
         } catch (e) {
           alert(e);
           dispatch(

@@ -38,6 +38,67 @@ p {
     text-align: center
 }
 
-// .button {
-    // background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE3LjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAyNCAyNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQgMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8cGF0aCBmaWxsPSJub25lIiBkPSJNMjQsMjRIMEwwLDBsMjQsMFYyNHoiLz4KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTQsMTNoMTIuMmwtNS42LDUuNkwxMiwyMGw4LThsLTgtOGwtMS40LDEuNGw1LjYsNS42SDRWMTN6Ii8+Cjwvc3ZnPgo=) 50% no-repeat
-// }
+
+.channel-messages {
+             box-sizing: border-box !important; 
+height: 90vh !important;
+overflow-x: hidden;
+overflow-y: auto;
+width: 78% !important;
+float: left !important;
+background: rgb(46, 49, 54) none repeat scroll 0% 0% / auto padding-box border-box;
+text-align: center;
+border-right: 7px gray solid;
+}
+
+.channel-messages h2 {
+                color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 0.96px;
+            text-transform: uppercase;
+            font-size: 12px !important;
+            margin: 29px 0px 9px;
+            padding: 0px 30px;
+
+}
+
+.channel-members {
+             box-sizing: border-box !important; 
+height: 90vh !important;
+overflow-x: hidden;
+overflow-y: auto;
+width: 22% !important;
+float: right !important;
+background: rgb(46, 49, 54) none repeat scroll 0% 0% / auto padding-box border-box;
+text-align: center;
+
+}
+
+.channel-members h2 {
+                color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 0.96px;
+            text-transform: uppercase;
+            font-size: 12px !important;
+            margin: 29px 0px 9px;
+            padding: 0px 30px;
+
+}
+
+.member {
+                box-sizing: border-box;
+            display: flex;
+            font: normal normal 500 normal 16px / 30px;
+            padding: 5px 16px 5px 30px;
+
+}
+
+.avatar {
+    // max-width: 35px;
+    height: 30px;
+    width: 30px;
+    border-radius: 50% 50% 50% 50%;
+    margin: 0px 10px 0px 0px;
+}
+
+.member-username {
+    color: rgb(255, 0, 102);
+}

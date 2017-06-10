@@ -27,6 +27,37 @@ module.exports = {
       .then(user => {
         accessToken = authService.issueTokenForUser(user);
 
+        Channel.find().sort("id ASC").limit(1).exec((err, c) => {
+          sails.log(c);
+          var GENERAL_CHANNEL_ID = c[0].id;
+          sails.log(
+            "GENERAL_CHANNEL_ID from AccountController:",
+            GENERAL_CHANNEL_ID
+          );
+          fetch(
+            "http://localhost:" +
+              sails.config.port +
+              "/api/channels/" +
+              GENERAL_CHANNEL_ID +
+              "/members",
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                Authorization: "Bearer " + accessToken
+              }
+            }
+          )
+            .then(res => {
+              if (res.status >= 400)
+                throw new Error("Couldnt join #general channel " + res.status);
+              return res.json();
+            })
+            .then(channel => {
+              console.log("New user automatically joined #general");
+            });
+        });
+
         res.ok({
           access_token: accessToken,
           refresh_token: authService.issueRefreshTokenForUser(accessToken)
@@ -210,6 +241,41 @@ module.exports = {
 
         accessToken = authService.issueTokenForUser(user);
         console.log(user);
+
+        if (user.email !== "admin") {
+          Channel.find().sort("id ASC").limit(1).exec((err, c) => {
+            sails.log(c);
+            var GENERAL_CHANNEL_ID = c[0].id;
+            sails.log(
+              "GENERAL_CHANNEL_ID from AccountController:",
+              GENERAL_CHANNEL_ID
+            );
+            fetch(
+              "http://localhost:" +
+                sails.config.port +
+                "/api/channels/" +
+                GENERAL_CHANNEL_ID +
+                "/members",
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded",
+                  Authorization: "Bearer " + accessToken
+                }
+              }
+            )
+              .then(res => {
+                if (res.status >= 400)
+                  throw new Error(
+                    "Couldnt join #general channel " + res.status
+                  );
+                return res.json();
+              })
+              .then(channel => {
+                console.log("New user automatically joined #general");
+              });
+          });
+        }
 
         res.ok({
           access_token: accessToken,

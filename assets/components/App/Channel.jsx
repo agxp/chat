@@ -42,7 +42,7 @@ export default class Channel extends Component {
       .then(response => response.json())
       .then(channel => {
         console.log(channel);
-        this.setState({ channel_id: channel[0].id, channel });
+        this.setState({ channel });
 
         fetch("/api/channels/" + channel[0].id + "/members", {
           method: "GET",
@@ -64,11 +64,20 @@ export default class Channel extends Component {
     return (
       <div>
         <Row> {this.state.channel[0].name}: {this.state.channel[0].topic}</Row>
-        <Col s={8} m={8}> Messages</Col>
-        <Col s={2} m={2}>
-          Users
+        <Col s={8} m={8} className="channel-messages">
+          <h2>Messages</h2>
+        </Col>
+        <Col s={2} m={2} className="channel-members">
+          <h2>Users</h2>
           {this.state.users.map(c => {
-            return <Row key={c.username}>{c.username}</Row>;
+            return (
+              <Row className="member" key={c.username}>
+                <img className="avatar" alt="Avatar" src={c.avatar} />
+                <div className="member-inner">
+                  <span className="member-username">{c.username}</span>
+                </div>
+              </Row>
+            );
           })}
         </Col>
       </div>

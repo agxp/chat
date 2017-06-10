@@ -4,8 +4,10 @@
  * @description :: Server-side logic for managing channels
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-
+let GENERAL_CHANNEL_ID;
 module.exports = {
+  GENERAL_CHANNEL_ID: GENERAL_CHANNEL_ID,
+
   getChannel: (req, res) => {
     Channel.findOne(req.params.id).exec((err, channel) => {
       if (err) {
@@ -40,9 +42,12 @@ module.exports = {
         if (req.body.topic) channel.topic = req.body.topic;
         if (req.body.icon) channel.icon = req.body.icon;
 
+        if (u.email === "admin") GENERAL_CHANNEL_ID = channel.id;
+
         channel.members.add(u.id);
         channel.save();
         sails.log("created channel:", channel.name);
+        sails.log("GENERAL_CHANNEL_ID", GENERAL_CHANNEL_ID);
 
         u.channels.add(channel.id);
         u.save();

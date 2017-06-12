@@ -28,7 +28,7 @@ module.exports = {
         accessToken = authService.issueTokenForUser(user);
 
         Channel.find().sort("id ASC").limit(1).exec((err, c) => {
-          sails.log(c);
+          // sails.log(c);
           var GENERAL_CHANNEL_ID = c[0].id;
           sails.log(
             "GENERAL_CHANNEL_ID from AccountController:",
@@ -240,11 +240,11 @@ module.exports = {
         }
 
         accessToken = authService.issueTokenForUser(user);
-        console.log(user);
+        // console.log(user);
 
         if (user.email !== "admin") {
           Channel.find().sort("id ASC").limit(1).exec((err, c) => {
-            sails.log(c);
+            // sails.log(c);
             var GENERAL_CHANNEL_ID = c[0].id;
             sails.log(
               "GENERAL_CHANNEL_ID from AccountController:",
@@ -272,7 +272,7 @@ module.exports = {
                 return res.json();
               })
               .then(channel => {
-                console.log("New user automatically joined #general");
+                sails.log("New user automatically joined #general");
               });
           });
         }

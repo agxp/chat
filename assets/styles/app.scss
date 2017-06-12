@@ -1,9 +1,19 @@
 html,
-body {
+body, #app {
     background: #7289da;
     font-family: Roboto, Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.row .col {
+    padding: 0;
+}
+
+.chat {
+    height: 100%;
 }
 
 h1 {
@@ -28,6 +38,10 @@ p {
 .channel-list {
     background-color: red;
 }
+.channel-list .col {
+    text-align: center;
+    width: 100%;    
+}
 
 #landing-hero {
     background-color: rgba(40, 43, 48, 0.75);
@@ -38,10 +52,13 @@ p {
     text-align: center
 }
 
+.channel-full, .channel-wrapper {
+    height: 100%;
+}
 
 .channel-messages {
              box-sizing: border-box !important; 
-height: 90vh !important;
+height: 100% !important;
 overflow-x: hidden;
 overflow-y: auto;
 width: 78% !important;
@@ -52,18 +69,27 @@ border-right: 7px gray solid;
 }
 
 .channel-messages h2 {
-                color: rgba(255, 255, 255, 0.4);
-            letter-spacing: 0.96px;
-            text-transform: uppercase;
-            font-size: 12px !important;
-            margin: 29px 0px 9px;
-            padding: 0px 30px;
+color: rgba(255, 255, 255, 0.4);
+letter-spacing: 0.96px;
+text-transform: uppercase;
+font-size: 12px !important;
+margin: 29px 0px 9px;
+padding: 0px 30px;
 
+}
+
+#channel-name {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    float: left;
+    letter-spacing: normal;
+    color: white;
+    font-weight: bold;
 }
 
 .channel-members {
              box-sizing: border-box !important; 
-height: 90vh !important;
+height: 100% !important;
 overflow-x: hidden;
 overflow-y: auto;
 width: 22% !important;

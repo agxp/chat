@@ -24,6 +24,7 @@ module.exports.bootstrap = function(done) {
   sails.emit("hook:orm:reload");
 
   sails.on("lifted", function() {
+    // Create Admin user
     fetch("http://localhost:" + sails.config.port + "/api/register", {
       method: "POST",
       body: JSON.stringify({
@@ -54,6 +55,44 @@ module.exports.bootstrap = function(done) {
           })
           .then(channel => {
             sails.log("Created main channel - #general");
+            fetch("http://localhost:" + sails.config.port + "/api/register", {
+              method: "POST",
+              body: JSON.stringify({
+                username: "Larry",
+                email: "larry@example.com",
+                password: "larry"
+              })
+            })
+              .then(res => res.json())
+              .then(u => {
+                sails.log("Created sample user: ", u.username);
+                fetch(
+                  "http://localhost:" + sails.config.port + "/api/register",
+                  {
+                    method: "POST",
+                    body: JSON.stringify({
+                      username: "Bob",
+                      email: "bob@example.com",
+                      password: "bob"
+                    })
+                  }
+                )
+                  .then(res => res.json())
+                  .then(u => {
+                    sails.log("Created sample user: ", u.username);
+                    fetch(
+                      "http://localhost:" + sails.config.port + "/api/register",
+                      {
+                        method: "POST",
+                        body: JSON.stringify({
+                          username: "Sam",
+                          email: "sam@example.com",
+                          password: "sam"
+                        })
+                      }
+                    ).then(u => sails.log("Created sample user: ", u.username));
+                  });
+              });
           });
       });
   });

@@ -47,11 +47,11 @@ export function fetchChannel(id) {
       const { auth: { token } } = getState();
       console.log(token);
       //   const headers = "Authorization: Bearer " + token;
-      const channel = await fetch("/api/users/@me/channels/" + id, {
+      let channel = await fetch("/api/channels/" + id, {
         method: "GET",
         headers: { Authorization: "Bearer " + token }
-      });
-      dispatch({ type: FETCH_CHANNEL_SUCCESS, channel });
+      }).then(channel => channel.json());
+      dispatch({ type: FETCH_CHANNEL_SUCCESS, payload: { channel } });
     } catch (error) {
       dispatch({
         type: FETCH_CHANNEL_FAILURE,
@@ -90,33 +90,26 @@ export function fetchMessagesFailure(error) {
 }
 
 export function fetchMessages(id) {
-  return function(dispatch) {
-    dispatch(joinChannelRequest());
-    return get_messages(id)
-      .then(parseJSON)
-      .then(messages => {
-        try {
-          dispatch(fetchMessagesSuccess(messages));
-        } catch (e) {
-          dispatch(
-            fetchMessagesFailure({
-              response: {
-                status: 403,
-                statusText: "Invalid token"
-              }
-            })
-          );
-        }
-      })
-      .catch(error => {
-        dispatch(
-          fetchMessagesFailure({
-            response: {
-              status: 403,
-              statusText: "Undefined error"
-            }
-          })
-        );
+  return async (dispatch, getState) => {
+    dispatch({ type: FETCH_MESSAGES_REQUEST });
+    try {
+      console.log(getState());
+      const { auth: { token } } = getState();
+      console.log(token);
+      //   const headers = "Authorization: Bearer " + token;
+      let messages = await fetch("/api/channels/" + id + "/messages", {
+        method: "GET",
+        headers: { Authorization: "Bearer " + token }
+      }).then(messages => messages.json());
+      dispatch({ type: FETCH_MESSAGES_SUCCESS, payload: { messages } });
+    } catch (error) {
+      dispatch({
+        type: FETCH_MESSAGES_FAILURE,
+        error: Error(
+          "Unknown error occured :-(. Please, try again later.",
+          error
+        )
       });
+    }
   };
 }

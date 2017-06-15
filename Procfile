@@ -1,2 +1,2 @@
-backend: set PORT=3000 & sails lift
+backend: sails lift
 frontend: node webpackDevServer

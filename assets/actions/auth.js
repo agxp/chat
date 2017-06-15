@@ -70,7 +70,7 @@ export function loginUser(email, password) {
           dispatch(loginUserSuccess(response.access_token));
           browserHistory.push("/channels/@me");
         } catch (e) {
-          alert(e);
+          console.log(e);
           dispatch(
             loginUserFailure({
               response: {

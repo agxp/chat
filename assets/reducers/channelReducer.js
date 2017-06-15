@@ -12,45 +12,42 @@ import {
 
 const initialState = {
   channel: null,
+  members: null,
   messages: null
 };
 
 export default createReducer(initialState, {
   [FETCH_CHANNEL_REQUEST]: state =>
     Object.assign({}, state, {
-      isCreating: true,
-      statusText: null
+      channel: null,
+      members: null
     }),
   [FETCH_CHANNEL_SUCCESS]: (state, payload) =>
     Object.assign({}, state, {
-      isCreating: false,
-      created: true,
-      statusText: "Successfully created channel",
-      channel: payload.channel
+      statusText: "Successfully got channel",
+      channel: payload.channel,
+      members: payload.channel.members
     }),
   [FETCH_CHANNEL_FAILURE]: (state, payload) =>
     Object.assign({}, state, {
-      isCreating: false,
-      created: false,
       status: payload.status,
       statusText: payload.statusText,
-      channel: null
+      channel: null,
+      members: null
     }),
   [FETCH_MESSAGES_SUCCESS]: (state, payload) =>
     Object.assign({}, state, {
-      joining: false,
-      joined: true,
-      channel: channel
+      statusText: "Successfully got messages",
+      messages: payload.messages
     }),
   [FETCH_MESSAGES_REQUEST]: state =>
     Object.assign({}, state, {
-      joining: true
+      messages: null
     }),
   [FETCH_CHANNEL_FAILURE]: (state, payload) =>
     Object.assign({}, state, {
-      joining: false,
-      joined: false,
+      status: payload.status,
       statusText: payload.statusText,
-      channel: null
+      messages: null
     })
 });

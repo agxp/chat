@@ -109,39 +109,43 @@ module.exports.bootstrap = function(done) {
                               content: "Hey guys what's up?"
                             })
                           }
-                        ).then(res => sails.log(res));
-                        fetch(
-                          "http://localhost:" +
-                            sails.config.port +
-                            "/api/channels/" +
-                            channel.id +
-                            "/messages",
-                          {
-                            method: "POST",
-                            headers: {
-                              Authorization: "Bearer " + u.access_token
-                            },
-                            body: JSON.stringify({
-                              content: "I was in class till now."
-                            })
-                          }
-                        );
-                        fetch(
-                          "http://localhost:" +
-                            sails.config.port +
-                            "/api/channels/" +
-                            channel.id +
-                            "/messages",
-                          {
-                            method: "POST",
-                            headers: {
-                              Authorization: "Bearer " + u.access_token
-                            },
-                            body: JSON.stringify({
-                              content: "That final was crazy!"
-                            })
-                          }
-                        );
+                        )
+                          .then(z => {
+                            fetch(
+                              "http://localhost:" +
+                                sails.config.port +
+                                "/api/channels/" +
+                                channel.id +
+                                "/messages",
+                              {
+                                method: "POST",
+                                headers: {
+                                  Authorization: "Bearer " + u.access_token
+                                },
+                                body: JSON.stringify({
+                                  content: "I was in class till now."
+                                })
+                              }
+                            );
+                          })
+                          .then(i => {
+                            fetch(
+                              "http://localhost:" +
+                                sails.config.port +
+                                "/api/channels/" +
+                                channel.id +
+                                "/messages",
+                              {
+                                method: "POST",
+                                headers: {
+                                  Authorization: "Bearer " + u.access_token
+                                },
+                                body: JSON.stringify({
+                                  content: "That final was crazy!"
+                                })
+                              }
+                            );
+                          });
                       });
                   });
               });

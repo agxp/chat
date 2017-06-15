@@ -9,7 +9,8 @@ module.exports = {
   GENERAL_CHANNEL_ID: GENERAL_CHANNEL_ID,
 
   getChannel: (req, res) => {
-    Channel.findOne(req.params.id).exec((err, channel) => {
+    id = req.params.id === "@me" ? GENERAL_CHANNEL_ID : req.params.id;
+    Channel.findOne(id).populate("members").exec((err, channel) => {
       if (err) {
         return res.serverError(err);
       }

@@ -1,50 +1,62 @@
 import React, { Component } from "react";
 import Router, { Link, RouteHandler } from "react-router";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { browserHistory } from "react-router";
+import * as actionCreators from "../../actions/auth";
 
 // components
 
 import { Row, Col, Input, Button } from "react-materialize";
 
-export default class Channel extends Component {
+function mapStateToProps(state) {
+  return {
+    token: state.auth.token,
+    userName: state.auth.userName,
+    isAuthenticated: state.auth.isAuthenticated
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch);
+}
+@connect(mapStateToProps, mapDispatchToProps)
+export default class Messages extends Component {
   constructor(props) {
     super(props);
-    let t = localStorage.getItem("access_token");
-    if (t === null || t === "") window.location.href = "/";
-    // let c;
-    // if (this.props.params.channel_id === "@me")
-
     this.state = {
-      // channel_id: this.props.params.channel_id,
       users: null,
-      channel: null
+      messages: null,
+      channel_id: null
     };
   }
 
   componentDidMount() {
-    let t = localStorage.getItem("access_token");
-    console.log(t);
-    fetch("/api/users/@me/channels", {
+    // hopefully the token exists
+    console.log(this);
+    fetch("/api/users/@me/channels/" + this.props.id + "/messages", {
       method: "GET",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: "Bearer " + t
+        Authorization: "Bearer " + this.props.token
       }
     })
       .then(response => response.json())
-      .then(channel => {
-        this.setState({ channel_id: channel[0].id, channel });
+      .then(messages => {
+        console.log(messages);
+        this.setState({ messages });
 
-        fetch("/api/channels/" + channel[0].id + "/members", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            Authorization: "Bearer " + t
-          }
-        })
-          .then(response => response.json())
-          .then(users => {
-            this.setState({ users });
-          });
+        // fetch("/api/channels/" + channel[0].id + "/members", {
+        //   method: "GET",
+        //   headers: {
+        //     "Content-Type": "application/x-www-form-urlencoded",
+        //     Authorization: "Bearer " + this.props.token
+        //   }
+        // })
+        //   .then(response => response.json())
+        //   .then(users => {
+        //     this.setState({ users });
+        //   });
       });
   }
 
@@ -52,13 +64,26 @@ export default class Channel extends Component {
     if (!this.state.channel || !this.state.users) return <div>Loading...</div>;
 
     return (
-      <div>
-        <Row> {this.state.channel[0].name}: {this.state.channel[0].topic}</Row>
-        <Col s={8} m={8}> Messages</Col>
-        <Col s={2} m={2}>
-          {" "}Users
+      <div className="channel-wrapper">
+        <Col s={8} m={8} className="channel-messages">
+          <h2 id="channel-name">
+            {this.state.channel[0].name}:
+            {this.state.channel[0].topic}
+          </h2>
+
+          <h2>Messages</h2>
+        </Col>
+        <Col s={2} m={2} className="channel-members">
+          <h2>Users</h2>
           {this.state.users.map(c => {
-            return <Row key={c.username}>{c.username}</Row>;
+            return (
+              <Row className="member" key={c.username}>
+                <img className="avatar" alt="Avatar" src={c.avatar} />
+                <div className="member-inner">
+                  <span className="member-username">{c.username}</span>
+                </div>
+              </Row>
+            );
           })}
         </Col>
       </div>

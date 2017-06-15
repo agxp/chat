@@ -52,7 +52,7 @@ export default class ChannelList extends Component {
     return (
       <Col>
         {this.state.channels.map(c => {
-          return <Row> <span key={c.name}>{c.name}</span></Row>;
+          return <Row key={c.name}> <span>{c.name}</span></Row>;
         })}
       </Col>
     );

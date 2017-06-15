@@ -90,7 +90,59 @@ module.exports.bootstrap = function(done) {
                           password: "sam"
                         })
                       }
-                    ).then(u => sails.log("Created sample user: ", u.username));
+                    )
+                      .then(res => res.json())
+                      .then(u => {
+                        sails.log("Created sample user: ", u);
+                        fetch(
+                          "http://localhost:" +
+                            sails.config.port +
+                            "/api/channels/" +
+                            channel.id +
+                            "/messages",
+                          {
+                            method: "POST",
+                            headers: {
+                              Authorization: "Bearer " + u.access_token
+                            },
+                            body: JSON.stringify({
+                              content: "Hey guys what's up?"
+                            })
+                          }
+                        ).then(res => sails.log(res));
+                        fetch(
+                          "http://localhost:" +
+                            sails.config.port +
+                            "/api/channels/" +
+                            channel.id +
+                            "/messages",
+                          {
+                            method: "POST",
+                            headers: {
+                              Authorization: "Bearer " + u.access_token
+                            },
+                            body: JSON.stringify({
+                              content: "I was in class till now."
+                            })
+                          }
+                        );
+                        fetch(
+                          "http://localhost:" +
+                            sails.config.port +
+                            "/api/channels/" +
+                            channel.id +
+                            "/messages",
+                          {
+                            method: "POST",
+                            headers: {
+                              Authorization: "Bearer " + u.access_token
+                            },
+                            body: JSON.stringify({
+                              content: "That final was crazy!"
+                            })
+                          }
+                        );
+                      });
                   });
               });
           });

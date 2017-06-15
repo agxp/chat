@@ -3,11 +3,13 @@ import Router, { Link, RouteHandler } from "react-router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { browserHistory } from "react-router";
-import * as actionCreators from "../../actions/auth";
+import * as actionCreators from "../../actions/channelActions";
 
 // components
 
 import { Row, Col, Input, Button } from "react-materialize";
+
+import Messages from "./Messages";
 
 function mapStateToProps(state) {
   return {
@@ -32,30 +34,33 @@ export default class Channel extends Component {
 
   componentDidMount() {
     // hopefully the token exists
-    fetch("/api/users/@me/channels", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: "Bearer " + this.props.token
-      }
-    })
-      .then(response => response.json())
-      .then(channel => {
-        console.log(channel);
-        this.setState({ channel });
+    // fetch("/api/users/@me/channels", {
+    //   method: "GET",
+    //   headers: {
+    //     "Content-Type": "application/x-www-form-urlencoded",
+    //     Authorization: "Bearer " + this.props.token
+    //   }
+    // })
+    //   .then(response => response.json())
+    //   .then(channel => {
+    //     console.log(channel);
+    //     this.setState({ channel });
 
-        fetch("/api/channels/" + channel[0].id + "/members", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            Authorization: "Bearer " + this.props.token
-          }
-        })
-          .then(response => response.json())
-          .then(users => {
-            this.setState({ users });
-          });
-      });
+    //     fetch("/api/channels/" + channel[0].id + "/members", {
+    //       method: "GET",
+    //       headers: {
+    //         "Content-Type": "application/x-www-form-urlencoded",
+    //         Authorization: "Bearer " + this.props.token
+    //       }
+    //     })
+    //       .then(response => response.json())
+    //       .then(users => {
+    //         this.setState({ users });
+    //       });
+    //   });
+    this.props.fetchChannel("").then(channel => {
+      console.log(channel);
+    });
   }
 
   render() {
@@ -70,6 +75,7 @@ export default class Channel extends Component {
           </h2>
 
           <h2>Messages</h2>
+          <Messages id={this.state.channel[0].id} />
         </Col>
         <Col s={2} m={2} className="channel-members">
           <h2>Users</h2>

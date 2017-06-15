@@ -34,8 +34,8 @@ module.exports.routes = {
   "GET /api/users/:id": "UserController.getUser",
   "POST /api/refresh-token": "AccountController.refreshToken",
 
-  "GET /api/channels": "Channel.find",
-  "GET /api/channels/:id": "ChannelController.getChannel",
+  "GET /api/channels": "Channel.find", // FIX, don't allow members to be populated
+  "GET /api/channels/:id": "ChannelController.getChannel", // Populate members
   "POST /api/channels": "ChannelController.createChannel",
   "PATCH /api/channels/:id": "ChannelController.editChannel",
   "DELETE /api/channels/:id": "ChannelController.deleteChannel",

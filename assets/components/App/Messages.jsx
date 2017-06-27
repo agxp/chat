@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { browserHistory } from "react-router";
 import * as actionCreators from "../../actions/channelActions";
+import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
 
 // components
 
@@ -34,14 +35,24 @@ export default class Messages extends Component {
 
     return (
       <div className="channel-messages-list">
-        <Col s={12} className="channel-messages">
+        <Col s={12}>
           {this.props.messages.reverse().map(c => {
             return (
               <Row className="member" key={c.id}>
                 <img className="avatar" alt="Avatar" src={c.author[0].avatar} />
-                <div className="member-inner">
-                  <span className="member-username">{c.content}</span>
+                <div className="member-inner" style={{ maxHeight: "100%" }}>
+                  <span className="member-username">
+                    {c.author[0].username}
+                  </span>
+                  <span style={{ marginLeft: "5px", color: "gray" }}>
+                    {distanceInWordsToNow(c.updatedAt)} ago
+                  </span>
                 </div>
+                <br />
+
+                <h2 style={{ height: "2px", clear: "left" }}>
+                  {c.content}
+                </h2>
               </Row>
             );
           })}

@@ -68,6 +68,10 @@ text-align: center;
 border-right: 7px gray solid;
 }
 
+.channel-messages-list {
+    white-space: pre;
+}
+
 .channel-messages h2 {
 color: rgba(255, 255, 255, 0.4);
 letter-spacing: 0.96px;

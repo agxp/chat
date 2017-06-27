@@ -1,4 +1,5 @@
-import { compose, applyMiddleware, createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
 import { persistStore, autoRehydrate } from "redux-persist";
 import { localStorage } from "redux-persist/storages";
 import { createLogger } from "redux-logger";
@@ -11,7 +12,10 @@ export default function configureStore() {
   const middleware = applyMiddleware(promise(), thunk, createLogger());
   return new Promise((resolve, reject) => {
     try {
-      const store = createStore(reducer, compose(autoRehydrate(), middleware));
+      const store = createStore(
+        reducer,
+        composeWithDevTools(autoRehydrate(), middleware)
+      );
 
       persistStore(store, { storage: localStorage }, () => resolve(store));
     } catch (e) {

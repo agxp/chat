@@ -1,0 +1,49 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Users\\Test\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'run',
+1 verbose cli   'dist' ]
+2 info using npm@3.9.2
+3 info using node@v7.4.0
+4 verbose run-script [ 'predist', 'dist', 'postdist' ]
+5 info lifecycle sails-react-webpack@0.2.0~predist: sails-react-webpack@0.2.0
+6 silly lifecycle sails-react-webpack@0.2.0~predist: no script for predist, continuing
+7 info lifecycle sails-react-webpack@0.2.0~dist: sails-react-webpack@0.2.0
+8 verbose lifecycle sails-react-webpack@0.2.0~dist: unsafe-perm in lifecycle true
+9 verbose lifecycle sails-react-webpack@0.2.0~dist: PATH: C:\Users\Test\AppData\Roaming\npm\node_modules\npm\bin\node-gyp-bin;C:\Users\Test\Downloads\discord-clone\node_modules\.bin;C:\Program Files\nodejs;C:\Users\Test\Downloads\discord-clone\node_modules\.bin;C:\Users\Test\AppData\Local\Yarn\config\link\node_modules\.bin;C:\Users\Test\Downloads\discord-clone\node_modules\.bin;C:\Users\Test\AppData\Local\Yarn\config\link\node_modules\.bin;C:\Users\Test\AppData\Roaming\npm;C:\Program Files\lib\node_modules\npm\bin\node-gyp-bin;C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;C:\Program Files\ImageMagick-7.0.3-Q16;C:\Program Files\ImageMagick-7.0.2-Q16;c:\tools\ruby23\bin;c:\programdata\oracle\java\javapath;c:\windows\system32;c:\windows;c:\windows\system32\wbem;c:\windows\system32\windowspowershell\v1.0\;c:\program files (x86)\ati technologies\ati.ace\core-static;c:\users\test\.dnx\bin;c:\program files\microsoft dnx\dnvm\;c:\program files (x86)\gtksharp\2.12\bin;c:\program files (x86)\universal extractor;c:\program files (x86)\universal extractor\bin;c:\program files (x86)\calibre2\;c:\program files (x86)\gnuwin32\bin;c:\users\test\appdata\local\programs\miktex 2.9\miktex\bin;c:\program files\wkhtmltopdf\bin;c:\program files (x86)\windows kits\10\windows performance toolkit\;c:\program files\git\cmd;c:\programdata\chocolatey\bin;c:\program files (x86)\pdftk\bin\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Users\Test\Downloads\ffmpeg\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\nodejs\;C:\tools\DevKit2\mingw\bin;C:\Program Files (x86)\Wiimm\WIT;C:\Program Files (x86)\Skype\Phone\;C:\Program Files (x86)\Yarn\bin;C:\Go\bin;C:\Program Files\Git\cmd;C:\Users\Test\AppData\Local\Programs\Python\Python36-32\Scripts\;C:\Users\Test\AppData\Local\Programs\Python\Python36-32\;C:\Users\Test\AppData\Local\Programs\Python\Python35-32\Scripts\;C:\Users\Test\AppData\Local\Programs\Python\Python35-32\;C:\Users\Test\AppData\Local\Programs\Git\cmd;C:\Users\Test\AppData\Local\Programs\Git\mingw64\bin;C:\Users\Test\AppData\Local\Programs\Git\usr\bin;C:\Users\Test\AppData\Local\Pandoc\;C:\Program Files (x86)\Microsoft VS Code\bin;C:\Program Files (x86)\Nmap;C:\Users\Test\AppData\Local\Microsoft\WindowsApps;C:\Users\Test\AppData\Roaming\npm;C:\Program Files\gs\gs9.20\bin;C:\Program Files\gs\gs9.20\lib;C:\Program Files (x86)\Wiimm\WIT;C:\Users\Test\Downloads\rethinkdb-2.3.5;C:\Users\Test\AppData\Local\Yarn\bin;C:\Program Files\Heroku\bin
+10 verbose lifecycle sails-react-webpack@0.2.0~dist: CWD: C:\Users\Test\Downloads\discord-clone
+11 silly lifecycle sails-react-webpack@0.2.0~dist: Args: [ '/d /s /c',
+11 silly lifecycle   'set NODE_ENV=production && webpack -p --config webpack.config.prod.js' ]
+12 silly lifecycle sails-react-webpack@0.2.0~dist: Returned: code: 1  signal: null
+13 info lifecycle sails-react-webpack@0.2.0~dist: Failed to exec dist script
+14 verbose stack Error: sails-react-webpack@0.2.0 dist: `set NODE_ENV=production && webpack -p --config webpack.config.prod.js`
+14 verbose stack Exit status 1
+14 verbose stack     at EventEmitter.<anonymous> (C:\Users\Test\AppData\Roaming\npm\node_modules\npm\lib\utils\lifecycle.js:245:16)
+14 verbose stack     at emitTwo (events.js:106:13)
+14 verbose stack     at EventEmitter.emit (events.js:191:7)
+14 verbose stack     at ChildProcess.<anonymous> (C:\Users\Test\AppData\Roaming\npm\node_modules\npm\lib\utils\spawn.js:24:14)
+14 verbose stack     at emitTwo (events.js:106:13)
+14 verbose stack     at ChildProcess.emit (events.js:191:7)
+14 verbose stack     at maybeClose (internal/child_process.js:885:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
+15 verbose pkgid sails-react-webpack@0.2.0
+16 verbose cwd C:\Users\Test\Downloads\discord-clone
+17 error Windows_NT 10.0.14393
+18 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Users\\Test\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js" "run" "dist"
+19 error node v7.4.0
+20 error npm  v3.9.2
+21 error code ELIFECYCLE
+22 error sails-react-webpack@0.2.0 dist: `set NODE_ENV=production && webpack -p --config webpack.config.prod.js`
+22 error Exit status 1
+23 error Failed at the sails-react-webpack@0.2.0 dist script 'set NODE_ENV=production && webpack -p --config webpack.config.prod.js'.
+23 error Make sure you have the latest version of node.js and npm installed.
+23 error If you do, this is most likely a problem with the sails-react-webpack package,
+23 error not with npm itself.
+23 error Tell the author that this fails on your system:
+23 error     set NODE_ENV=production && webpack -p --config webpack.config.prod.js
+23 error You can get information on how to open an issue for this project with:
+23 error     npm bugs sails-react-webpack
+23 error Or if that isn't available, you can get their info via:
+23 error     npm owner ls sails-react-webpack
+23 error There is likely additional logging output above.
+24 verbose exit [ 1, true ]

@@ -61,7 +61,7 @@
   "scripts": {
     "start": "nf start --wrap",
     "dev": "node webpackDevServer",
-    "dist": "set NODE_ENV=production & webpack -p --config webpack.config.prod.js",
+    "dist": "set NODE_ENV=production && webpack -p --config webpack.config.prod.js",
     "postinstall": "npm run dist"
   },
   "main": "app.js",

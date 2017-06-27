@@ -5,66 +5,64 @@ const webpack = require("webpack");
 const NODE_ENV = process.env.NODE_ENV;
 
 module.exports = {
-  target: "web",
+    target: "web",
 
-  devtool: "cheap-module-eval-source-map",
+    devtool: "cheap-module-eval-source-map",
 
-  entry: [
-    "babel-polyfill",
-    "webpack-dev-server/client?http://localhost:8080",
-    "webpack/hot/dev-server",
-    "./assets/main.jsx"
-  ],
-
-  output: {
-    path: path.join(__dirname, "/public/dist/"),
-    filename: "bundle.js",
-    pathInfo: true,
-    publicPath: "http://localhost:8080/dist/",
-    hot: true
-  },
-
-  resolve: {
-    root: path.join(__dirname, ""),
-    modulesDirectories: [
-      "web_modules",
-      "node_modules",
-      "assets",
-      "assets/components",
-      "assets/styles"
+    entry: [
+        "babel-polyfill",
+        "webpack-dev-server/client?http://localhost:8080",
+        "webpack/hot/dev-server",
+        "./assets/main.jsx"
     ],
-    extensions: ["", ".webpack.js", ".web.js", ".js", ".jsx"]
-  },
 
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.DefinePlugin({
-      __ENV__: NODE_ENV
-    })
-  ],
+    output: {
+        path: path.join(__dirname, "/public/dist/"),
+        filename: "bundle.js",
+        pathInfo: true,
+        publicPath: "http://localhost:8080/dist/",
+        hot: true
+    },
 
-  module: {
-    loaders: [
-      {
-        test: /\.scss$/, // sass files
-        loader:
-          "style!css!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded"
-      },
-      {
-        test: /\.(ttf|eot|svg|woff)(\?[a-z0-9]+)?$/, // fonts files
-        loader: "file-loader?name=[path][name].[ext]"
-      },
-      {
-        test: /\.js|jsx?$/, // react files
-        exclude: /node_modules/,
-        loaders: [
-          "react-hot",
-          "babel?presets[]=es2015,presets[]=stage-0,presets[]=react,plugins[]=transform-decorators-legacy"
+    resolve: {
+        root: path.join(__dirname, ""),
+        modulesDirectories: [
+            "web_modules",
+            "node_modules",
+            "assets",
+            "assets/components",
+            "assets/styles"
         ],
-        include: path.join(__dirname, "assets")
-      }
+        extensions: ["", ".webpack.js", ".web.js", ".js", ".jsx"]
+    },
+
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.DefinePlugin({
+            __ENV__: NODE_ENV
+        })
     ],
 
-    noParse: /\.min\.js/
-  }
+    module: {
+        loaders: [{
+                test: /\.scss$/, // sass files
+                loader: "style!css!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded"
+            },
+            {
+                test: /\.(ttf|eot|svg|woff)(\?[a-z0-9]+)?$/, // fonts files
+                loader: "file-loader?name=[path][name].[ext]"
+            },
+            {
+                test: /\.js|jsx?$/, // react files
+                exclude: /node_modules/,
+                loaders: [
+                    "react-hot",
+                    "babel?presets[]=es2015,presets[]=stage-0,presets[]=react,plugins[]=transform-decorators-legacy"
+                ],
+                include: path.join(__dirname, "assets")
+            }
+        ],
+
+        noParse: /\.min\.js/
+    }
 };

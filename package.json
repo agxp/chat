@@ -59,7 +59,7 @@
     "webpack": "^1.13.0"
   },
   "scripts": {
-    "start": "nf start --wrap",
+    "start": "nf start",
     "dev": "node webpackDevServer",
     "dist": "set NODE_ENV=production && webpack -p --config webpack.config.prod.js"
   },

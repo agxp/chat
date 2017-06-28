@@ -91,10 +91,9 @@
         "webpack-dev-server": "^1.14.1"
     },
     "scripts": {
-        "start": "nf start",
-        "dev": "node webpackDevServer",
-        "dist": "set NODE_ENV=production && webpack -p --config webpack.config.prod.js && sails lift --prod --verbose",
-        "postinstall": "npm run dist"
+        "start": "npm run dist && sails lift --prod --verbose",
+        "dev": "nf start",
+        "dist": "set NODE_ENV=production && webpack -p --config webpack.config.prod.js"
     },
     "main": "app.js",
     "repository": {

@@ -4,7 +4,7 @@
     "version": "0.2.0",
     "description": "A Sails, React & Webpack boilerplate",
     "engines": {
-        "node": "5.8.0",
+        "node": "7.4.0",
         "npm": ">= 3.7.3"
     },
     "keywords": [

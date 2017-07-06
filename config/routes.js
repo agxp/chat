@@ -50,6 +50,8 @@ module.exports.routes = {
   "DELETE /api/channels/:id/messages/:message_id":
     "ChannelController.deleteMessage",
 
+  "GET /api/channels/:id/messages/listen": "ChannelController.streamMessages",
+
   // All GET requests are directed to the app controller which renders our app.
   "GET /*": {
     controller: "AppController",

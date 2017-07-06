@@ -12,7 +12,7 @@ import { Row, Col, Input, Button } from "react-materialize";
 
 function mapStateToProps(state) {
   return {
-    // channel: state.channel.channel,
+    token: state.auth.token,
     messages: state.channel.messages
   };
 }
@@ -27,6 +27,10 @@ export default class Messages extends Component {
     this.props.fetchMessages(this.props.id).then(messages => {
       console.log(this.props.messages);
       console.log("got messages");
+
+      this.props.streamMessages(this.props.id).then(m => {
+        console.log(m);
+      });
     });
   }
 

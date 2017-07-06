@@ -26,7 +26,14 @@ export default class Channel extends Component {
   componentDidMount() {
     this.props.fetchChannel("@me").then(channel => {
       console.log(this.props.channel);
-      console.log("hi");
+    });
+  }
+
+  post(e) {
+    e.preventDefault();
+    const message = this.refs.message.value;
+    this.props.postMessage(this.props.channel.id, message).then(m => {
+      console.log(m);
     });
   }
 
@@ -44,6 +51,15 @@ export default class Channel extends Component {
 
           <h2>Messages</h2>
           <Messages id={this.props.channel.id} />
+          <form onSubmit={this.post.bind(this)}>
+            <input
+              type="text"
+              className="message-box"
+              ref="message"
+              placeholder="Type a message"
+            />
+            <Button className="send-message">Send</Button>
+          </form>
         </Col>
         <Col s={2} m={2} className="channel-members">
           <h2>Users</h2>
@@ -52,7 +68,9 @@ export default class Channel extends Component {
               <Row className="member" key={c.username}>
                 <img className="avatar" alt="Avatar" src={c.avatar} />
                 <div className="member-inner">
-                  <span className="member-username">{c.username}</span>
+                  <span className="member-username">
+                    {c.username}
+                  </span>
                 </div>
               </Row>
             );

@@ -13,14 +13,22 @@ require("isomorphic-fetch");
 
 module.exports.bootstrap = function(done) {
     // Don't seed fake data when running in production.
+//  if (process.env.NODE_ENV === 'production' && process.env.RUN == 'first') {
+//     return done();
+//   }
+
     var register_or_login = "register";
 
     // Drop the database
-    sails.once("hook:orm:reloaded", function() {
-        sails.log("Dropped database");
+    // sails.once("hook:orm:reloaded", function() {
+        // sails.log("Dropped database");
         User.find({ email: "admin" }).exec((err, u) => {
             if (err) return done((err))
-            if (u.length) register_or_login = "login";
+            if (u.length) {
+                sails.log("Admin user exists");
+                return done();
+                // register_or_login = "login";
+            }
             sails.log(u);
             sails.log(register_or_login)
                 // Create Admin user
@@ -40,6 +48,7 @@ module.exports.bootstrap = function(done) {
                 .then(user => {
                     sails.log("Created admin user");
                     sails.log(user.access_token);
+                        
                     fetch("http://localhost:" + sails.config.port + "/api/channels", {
                             method: "POST",
                             headers: {
@@ -54,6 +63,11 @@ module.exports.bootstrap = function(done) {
                         })
                         .then(channel => {
                             sails.log("Created main channel - #general");
+                            User.find({ email: "larry@example.com" }).exec((err, u) => {
+            if (err) return done((err))
+            if (u.length) register_or_login = "login";
+            sails.log(u);
+            sails.log(register_or_login)
                             fetch("http://localhost:" + sails.config.port + "/api/" + register_or_login, {
                                     method: "POST",
                                     body: JSON.stringify({
@@ -65,6 +79,11 @@ module.exports.bootstrap = function(done) {
                                 .then(res => res.json())
                                 .then(u => {
                                     sails.log("Created sample user: ", u.username);
+                                    User.find({ email: "bob@example.com" }).exec((err, u) => {
+            if (err) return done((err))
+            if (u.length) register_or_login = "login";
+            sails.log(u);
+            sails.log(register_or_login)
                                     fetch(
                                             "http://localhost:" + sails.config.port + "/api/" + register_or_login, {
                                                 method: "POST",
@@ -78,6 +97,11 @@ module.exports.bootstrap = function(done) {
                                         .then(res => res.json())
                                         .then(u => {
                                             sails.log("Created sample user: ", u.username);
+                                            User.find({ email: "sam@example.com" }).exec((err, u) => {
+            if (err) return done((err))
+            if (u.length) register_or_login = "login";
+            sails.log(u);
+            sails.log(register_or_login)
                                             fetch(
                                                     "http://localhost:" + sails.config.port + "/api/" + register_or_login, {
                                                         method: "POST",
@@ -144,17 +168,17 @@ module.exports.bootstrap = function(done) {
                                         });
                                 });
                         });
-                });
-
+                }); 
+                            })})});
 
         })
-    });
-    sails.emit("hook:orm:reload");
+    // });
+    // sails.emit("hook:orm:reload");
 
 
 
-    sails.on("lifted", function() {
+    // sails.on("lifted", function() {
 
-    });
-    done();
+    // });
+    return done();
 };

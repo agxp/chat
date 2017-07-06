@@ -1,134 +1,152 @@
 html,
-body, #app {
-    background: #7289da;
-    font-family: Roboto, Arial, Helvetica, sans-serif;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
+body,
+#app {
+  background: #7289da;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 .row .col {
-    padding: 0;
+  padding: 0;
 }
 
 .chat {
-    height: 100%;
+  height: 100%;
 }
 
 h1 {
-    color: white;
-    text-align: center;
-    font-weight: 700;
-    font-size: 36px;
-    line-height: 44px;
-    margin: 0;
+  color: white;
+  text-align: center;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 44px;
+  margin: 0;
 }
 
 p {
-    color: white;
-    opacity: 0.6;
+  color: white;
+  opacity: 0.6;
 }
 
 .container {
-    max-width: 800px;
-    margin: 2em auto;
+  max-width: 800px;
+  margin: 2em auto;
 }
 
 .channel-list {
-    background-color: red;
+  background-color: red;
 }
 .channel-list .col {
-    text-align: center;
-    width: 100%;    
+  text-align: center;
+  width: 100%;
 }
 
 #landing-hero {
-    background-color: rgba(40, 43, 48, 0.75);
+  background-color: rgba(40, 43, 48, 0.75);
 }
 
 .landing-cta {
-    margin-top: 20%;
-    text-align: center
+  margin-top: 20%;
+  text-align: center;
 }
 
-.channel-full, .channel-wrapper {
-    height: 100%;
+.channel-full,
+.channel-wrapper {
+  height: 100%;
 }
 
 .channel-messages {
-             box-sizing: border-box !important; 
-height: 100% !important;
-overflow-x: hidden;
-overflow-y: auto;
-width: 78% !important;
-float: left !important;
-background: rgb(46, 49, 54) none repeat scroll 0% 0% / auto padding-box border-box;
-text-align: center;
-border-right: 7px gray solid;
+  box-sizing: border-box !important;
+  height: 100% !important;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 78% !important;
+  float: left !important;
+  background: rgb(46, 49, 54) none repeat scroll 0% 0% / auto padding-box
+    border-box;
+  text-align: center;
+  border-right: 7px gray solid;
 }
 
 .channel-messages-list {
-    white-space: pre;
+  white-space: pre;
+  height: 88%;
 }
 
 .channel-messages h2 {
-color: rgba(255, 255, 255, 0.4);
-letter-spacing: 0.96px;
-text-transform: uppercase;
-font-size: 12px !important;
-margin: 29px 0px 9px;
-padding: 0px 30px;
-
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.96px;
+  text-transform: uppercase;
+  font-size: 12px !important;
+  margin: 29px 0px 9px;
+  padding: 0px 30px;
 }
 
 #channel-name {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    float: left;
-    letter-spacing: normal;
-    color: white;
-    font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  float: left;
+  letter-spacing: normal;
+  color: white;
+  font-weight: bold;
 }
 
 .channel-members {
-             box-sizing: border-box !important; 
-height: 100% !important;
-overflow-x: hidden;
-overflow-y: auto;
-width: 22% !important;
-float: right !important;
-background: rgb(46, 49, 54) none repeat scroll 0% 0% / auto padding-box border-box;
-text-align: center;
-
+  box-sizing: border-box !important;
+  height: 100% !important;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 22% !important;
+  float: right !important;
+  background: rgb(46, 49, 54) none repeat scroll 0% 0% / auto padding-box
+    border-box;
+  text-align: center;
 }
 
 .channel-members h2 {
-                color: rgba(255, 255, 255, 0.4);
-            letter-spacing: 0.96px;
-            text-transform: uppercase;
-            font-size: 12px !important;
-            margin: 29px 0px 9px;
-            padding: 0px 30px;
-
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.96px;
+  text-transform: uppercase;
+  font-size: 12px !important;
+  margin: 29px 0px 9px;
+  padding: 0px 30px;
 }
 
 .member {
-                box-sizing: border-box;
-            display: flex;
-            font: normal normal 500 normal 16px / 30px;
-            padding: 5px 16px 5px 30px;
-
+  box-sizing: border-box;
+  display: flex;
+  font: normal normal 500 normal 16px / 30px;
+  padding: 5px 16px 5px 30px;
 }
 
 .avatar {
-    // max-width: 35px;
-    height: 50px;
-    width: 50px;
-    border-radius: 50% 50% 50% 50%;
-    margin: 0px 10px 0px 0px;
+  // max-width: 35px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50% 50% 50% 50%;
+  margin: 0px 10px 0px 0px;
 }
 
 .member-username {
-    color: rgb(255, 0, 102);
+  color: rgb(255, 0, 102);
+}
+
+.message-box {
+  background: white !important;
+  height: 5% !important;
+  border-radius: 10px !important;
+  font-size: 20px !important;
+  width: 90% !important;
+}
+
+.send-message {
+  height: 5% !important;
+  border-radius: 10px !important;
+  //   min-width: 5%;
+  margin-left: 1%;
+  text-align: center;
+  padding: 0;
 }

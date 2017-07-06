@@ -51,4 +51,23 @@ module.exports = {
       defaultsTo: false
     }
   }
+
+  // afterCreate: function(message, cb) {
+  //   Message.find({
+  //     channel_id: message.channel_id
+  //   })
+  //     .populateAll()
+  //     .sort("id DESC")
+  //     .limit(50)
+  //     .exec((err, populated) => {
+  //       if (err) return res.serverError(err);
+  //       else if (!populated) return res.notFound("cannot find");
+
+  //       // if (!messages[0].author)
+  //       sails.log("MESSAGE:", JSON.stringify(populated[0].author));
+
+  //       Channel.message(message.channel_id, populated);
+  //       cb();
+  //     });
+  // }
 };

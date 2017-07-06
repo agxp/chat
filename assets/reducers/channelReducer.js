@@ -7,7 +7,11 @@ import {
   FETCH_CHANNEL_SUCCESS,
   FETCH_MESSAGES_FAILURE,
   FETCH_MESSAGES_REQUEST,
-  FETCH_MESSAGES_SUCCESS
+  FETCH_MESSAGES_SUCCESS,
+  POST_MESSAGE_FAILURE,
+  POST_MESSAGE_REQUEST,
+  POST_MESSAGE_SUCCESS,
+  STREAM_MESSAGES_SUCCESS
 } from "../constants/index";
 
 const initialState = {
@@ -49,5 +53,19 @@ export default createReducer(initialState, {
       status: payload.status,
       statusText: payload.statusText,
       messages: null
+    }),
+  [POST_MESSAGE_SUCCESS]: (state, payload) =>
+    Object.assign({}, state, {
+      statusText: "Successfully got messages",
+      posted_messages: payload.messages
+    }),
+  [POST_MESSAGE_REQUEST]: state =>
+    Object.assign({}, state, {
+      posted_messages: null
+    }),
+  [STREAM_MESSAGES_SUCCESS]: (state, payload) =>
+    Object.assign({}, state, {
+      statusText: "Successfully got messages",
+      messages: payload.messages
     })
 });

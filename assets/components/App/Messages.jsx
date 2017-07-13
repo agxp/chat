@@ -51,12 +51,11 @@ export default class Messages extends Component {
                   <span style={{ marginLeft: "5px", color: "gray" }}>
                     {distanceInWordsToNow(c.updatedAt)} ago
                   </span>
+                  <h2 style={{ height: "2px", clear: "left" }}>
+                    {c.content}
+                  </h2>
                 </div>
                 <br />
-
-                <h2 style={{ height: "2px", clear: "left" }}>
-                  {c.content}
-                </h2>
               </Row>
             );
           })}

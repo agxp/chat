@@ -51,7 +51,7 @@ export default class Channel extends Component {
 
           <h2>Messages</h2>
           <Messages id={this.props.channel.id} />
-          <form onSubmit={this.post.bind(this)}>
+          {/*<form onSubmit={this.post.bind(this)}>
             <input
               type="text"
               className="message-box"
@@ -59,6 +59,22 @@ export default class Channel extends Component {
               placeholder="Type a message"
             />
             <Button className="send-message">Send</Button>
+          </form>*/}
+          <form id="FORM_1" onSubmit={this.post.bind(this)}>
+            <div id="DIV_2">
+              <div id="DIV_3">
+                <div id="DIV_4">
+                  <input type="file" id="INPUT_5" />
+                </div>
+                <input
+                  type="text"
+                  rows="1"
+                  placeholder="Type a message"
+                  id="TEXTAREA_6"
+                  ref="message"
+                />
+              </div>
+            </div>
           </form>
         </Col>
         <Col s={2} m={2} className="channel-members">

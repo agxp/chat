@@ -93,6 +93,7 @@ export default class Login extends Component {
             <p>
               Need have an account? <Link to="/register">Register</Link>
             </p>
+            <p>Made by Arman</p>
           </Row>
         </section>
       </div>

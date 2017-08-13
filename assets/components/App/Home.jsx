@@ -72,6 +72,9 @@ export default class Register extends Component {
             <p>
               Already have an account? <Link to="/login">Login</Link>
             </p>
+            <p>
+              Made by Arman
+            </p>
           </Row>
         </section>
       </div>

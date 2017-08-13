@@ -82,7 +82,7 @@ module.exports.connections = {
     password: url.auth.split(":")[1],
     database: url.pathname.substring(1),
     port: url.port,
-    ssl: true
+    ssl: url.host.split(":")[0] === "localhost" ? false : true
   }
 
   /***************************************************************************

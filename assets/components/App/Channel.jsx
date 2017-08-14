@@ -35,6 +35,7 @@ export default class Channel extends Component {
     this.props.postMessage(this.props.channel.id, message).then(m => {
       console.log(m);
     });
+    this.refs.message.value = "";
   }
 
   render() {

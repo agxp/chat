@@ -77,11 +77,8 @@ module.exports.connections = {
   ***************************************************************************/
   somePostgresqlServer: {
     adapter: "sails-postgresql",
-    host: url.host.split(":")[0],
-    user: url.auth.split(":")[0],
-    password: url.auth.split(":")[1],
-    database: url.pathname.substring(1),
-    port: url.port,
+    url: process.env.DATABASE_URL,
+    poolSize: 10,
     schema: true,
     ssl: url.host.split(":")[0] === "localhost" ? false : true
   }

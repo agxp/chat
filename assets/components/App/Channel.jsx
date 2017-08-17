@@ -50,7 +50,7 @@ export default class Channel extends Component {
             {this.props.channel.topic}
           </h2>
 
-          <h2>Messages</h2>
+          <h2 style={{ float: "none" }}>Messages</h2>
           <Messages id={this.props.channel.id} />
           {/*<form onSubmit={this.post.bind(this)}>
             <input

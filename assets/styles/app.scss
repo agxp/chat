@@ -37,7 +37,8 @@ p {
 }
 
 .channel-list {
-  background-color: red;
+  color: white;
+  border: 1px solid black;
 }
 .channel-list .col {
   text-align: center;
@@ -80,6 +81,7 @@ p {
   color: white;
   font-size: 1rem !important;
   margin-top: 7px;
+  float: left;
 }
 
 #channel-name {
@@ -89,6 +91,8 @@ p {
   letter-spacing: normal;
   color: white;
   font-weight: bold;
+  margin-left: 10px;
+  border: 1px solid grey;
 }
 
 .channel-members {
@@ -126,6 +130,7 @@ p {
 
 .member-username {
   color: rgb(255, 0, 102);
+  float: left;
 }
 
 .message-box {

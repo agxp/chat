@@ -48,7 +48,7 @@ export default class Messages extends Component {
                   <span className="member-username">
                     {c.author[0].username}
                   </span>
-                  <span style={{ marginLeft: "5px", color: "gray" }}>
+                  <span style={{ marginLeft: "5px", color: "gray", float: "left" }}>
                     {distanceInWordsToNow(c.updatedAt)} ago
                   </span>
                   <h2 style={{ height: "2px", clear: "left" }}>
